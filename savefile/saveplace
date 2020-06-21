@@ -1,0 +1,10 @@
+;;; -*- coding: utf-8 -*-
+(("c:/Users/peres/Tmp/.emacs.d/prelude/"
+  (dired-filename . "c:/Users/peres/Tmp/.emacs.d/prelude/vendor"))
+ ("c:/Users/peres/Tmp/.emacs.d/" . 226)
+ ("c:/Users/peres/Desktop/run-new-emacs.bat" . 48)
+ ("c:/Users/peres/Tmp/.emacs.d/pkg-list.el" . 279)
+ ("c:/Users/peres/Tmp/.emacs.d/init.el" . 87)
+ ("c:/Users/peres/Tmp/.emacs.d/conf/init-benchmarking.el" . 2773)
+ ("c:/Users/peres/Tmp/.emacs.d/savefile/recentf" . 891)
+ ("c:/Users/peres/Tmp/time-calc.org" . 45))

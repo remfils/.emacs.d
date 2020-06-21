@@ -1,0 +1,4 @@
+# key: prop
+# name: Property
+# --
+public ${1:int} ${2:Name} { get; set; }$0
