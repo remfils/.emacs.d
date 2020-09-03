@@ -64,3 +64,4 @@
 (require 'conf-capture-sync)
 
 (provide 'init)
+(put 'upcase-region 'disabled nil)

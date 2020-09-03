@@ -23,3 +23,13 @@ ledger bal -f ledger-2020.sm Assets
 ledger bal -f ledger-2020.sm Assets
 ledger bal -f ledger-2020.sm Assets
 ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Assets
+ledger bal -f ledger-2020.sm Expenses --begin 08/24

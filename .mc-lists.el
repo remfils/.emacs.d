@@ -3,8 +3,15 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        c-electric-paren
+        c-electric-semi&comma
         delete-horizontal-space
+        org-beginning-of-line
+        org-delete-char
+        org-end-of-line
         org-self-insert-command
+        org-yank
+        upcase-region
         ))
 
 (setq mc/cmds-to-run-once
