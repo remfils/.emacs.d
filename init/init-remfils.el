@@ -91,5 +91,36 @@
       (when (string-match "\.png" (org-element-property :path link))
         (org-element-property :path link)))))
 
+
+(defun remfils/open-workspace (dir orientation)
+  (interactive "Ddir name:\ncorientation")
+  (let ((n-file (concat (file-name-as-directory dir) "notes.org"))
+        (t-file (concat (file-name-as-directory dir) "tasks.org")))
+
+    (cond
+     ((char-equal orientation ?3)
+      (progn
+        (set-frame-parameter nil 'fullscreen 'maximized)
+        (find-file n-file)
+        (outline-show-heading)
+        (split-window-right)
+        (find-file t-file)
+        (outline-show-all)
+        ))
+     (t (progn
+          (set-frame-parameter nil 'fullscreen 'maximized)
+          (find-file n-file)
+          (split-window-below)
+          (find-file t-file)
+          ))))
+  )
+
+(defun remfils/clear-subtree ()
+  (interactive)
+  (org-mark-subtree) ;; mark the current subtree
+  (forward-line) ;; move point forward, so the headline isn't in the region
+  (delete-region (region-beginning) (region-end)) ;; delete the rest
+  )
+
 (provide 'init-remfils)
 ;;; init-windows.el ends here
