@@ -37,6 +37,27 @@
 
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
+(defun remfils/helm-switch-other-window-horizontally ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action
+     (lambda (candidate)
+       (let ((helm-window-prefer-horizontal-split nil))
+         (helm-find-files-other-window candidate))))))
+
+(defun remfils/helm-switch-other-window-vertically ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action
+     (lambda (candidate)
+       (let ((helm-window-prefer-horizontal-split t))
+         (helm-find-files-other-window candidate))))))
+
+(define-key helm-find-files-map (kbd "C-c 2") 'remfils/helm-switch-other-window-horizontally)
+(define-key helm-find-files-map (kbd "C-c 3") 'remfils/helm-switch-other-window-vertically)
+
+
+
 (add-hook
  'after-init-hook
  (lambda () (helm-mode 1)))
