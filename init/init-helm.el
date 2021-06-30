@@ -53,8 +53,9 @@
        (let ((helm-window-prefer-horizontal-split t))
          (helm-find-files-other-window candidate))))))
 
-(define-key helm-find-files-map (kbd "C-c 2") 'remfils/helm-switch-other-window-horizontally)
-(define-key helm-find-files-map (kbd "C-c 3") 'remfils/helm-switch-other-window-vertically)
+;; todo: why?
+;; (define-key helm-find-files-map (kbd "C-c 2") 'remfils/helm-switch-other-window-horizontally)
+;; (define-key helm-find-files-map (kbd "C-c 3") 'remfils/helm-switch-other-window-vertically)
 
 
 

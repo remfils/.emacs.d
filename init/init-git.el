@@ -10,7 +10,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch)
 
-(setenv "SSH_ASKPASS" "git-gui--askpass")
+;; (setenv "SSH_ASKPASS" "git-gui--askpass")
 
 
 (provide 'init-git)
