@@ -18,10 +18,10 @@
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
 
-(define-key helm-command-map (kbd "o") 'helm-occur)
-(define-key helm-command-map (kbd "g") 'helm-do-grep)
-(define-key helm-command-map (kbd "C-c w") 'helm-wikipedia-suggest)
-(define-key helm-command-map (kbd "SPC") 'helm-all-mark-rings)
+;; (define-key helm-command-map (kbd "o") 'helm-occur)
+;; (define-key helm-command-map (kbd "g") 'helm-do-grep)
+;; (define-key helm-command-map (kbd "C-c w") 'helm-wikipedia-suggest)
+;; (define-key helm-command-map (kbd "SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
 
@@ -36,6 +36,27 @@
 (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
 
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+
+(defun remfils/helm-switch-other-window-horizontally ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action
+     (lambda (candidate)
+       (let ((helm-window-prefer-horizontal-split nil))
+         (helm-find-files-other-window candidate))))))
+
+(defun remfils/helm-switch-other-window-vertically ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action
+     (lambda (candidate)
+       (let ((helm-window-prefer-horizontal-split t))
+         (helm-find-files-other-window candidate))))))
+
+(define-key helm-find-files-map (kbd "C-c 2") 'remfils/helm-switch-other-window-horizontally)
+(define-key helm-find-files-map (kbd "C-c 3") 'remfils/helm-switch-other-window-vertically)
+
+
 
 (add-hook
  'after-init-hook

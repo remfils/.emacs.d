@@ -21,6 +21,8 @@
 
 (require 'init-elpa)      ;; Machinery for installing required packages
 
+(require 'org-yt)
+
 (require 'conf-themes)
 (require 'conf-gui)
 (require 'conf-edit)
@@ -28,6 +30,7 @@
 (require 'conf-backups)
 
 (require 'init-yasnippet)
+(require 'init-cpp)
 (require 'init-multiple-cursors)
 (require 'init-avy)
 (require 'init-helm)
@@ -47,6 +50,7 @@
 (require 'init-windows)
 (require 'init-pdf-tools)
 (require 'init-openwith)
+(require 'init-remfils)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Allow access from emacsclient
@@ -65,3 +69,5 @@
 
 (provide 'init)
 (put 'upcase-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'downcase-region 'disabled nil)
