@@ -7,8 +7,6 @@
 
 ;;; Code:
 
-
-
 (c-add-style "microsoft"
           '("stroustrup"
             (c-offsets-alist

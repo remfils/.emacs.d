@@ -13,14 +13,14 @@
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
-(after-load 'org-agenda
-            (add-hook 'org-agenda-mode-hook
-                      (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t))))
-
+(after-load
+    'org-agenda
+  (add-hook
+   'org-agenda-mode-hook
+   (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t))))
 
 (setq org-odt-category-map-alist
       '(("__Figure__" "Изображение" "value" "Изображение" org-odt--enumerable-image-p)))
-
 
 ;; modules
 

@@ -6,9 +6,6 @@
 
 (require-package 'csharp-mode)
 
-
-
-
 (defun remfils/inline-object-declaration (class-name fields)
   (interactive "sclass name: \nsclass fields: ")
 

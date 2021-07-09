@@ -7,6 +7,7 @@
 ;; (require-package 'helm-ag)
 
 (require 'helm-config)
+(require 'helm-files)
 ;; (require 'helm-eshell)
 
 (setq helm-split-window-in-side-p t
@@ -53,11 +54,9 @@
        (let ((helm-window-prefer-horizontal-split t))
          (helm-find-files-other-window candidate))))))
 
-;; todo: why?
-;; (define-key helm-find-files-map (kbd "C-c 2") 'remfils/helm-switch-other-window-horizontally)
-;; (define-key helm-find-files-map (kbd "C-c 3") 'remfils/helm-switch-other-window-vertically)
 
-
+(define-key helm-find-files-map (kbd "C-c 2") 'remfils/helm-switch-other-window-horizontally)
+(define-key helm-find-files-map (kbd "C-c 3") 'remfils/helm-switch-other-window-vertically)
 
 (add-hook
  'after-init-hook

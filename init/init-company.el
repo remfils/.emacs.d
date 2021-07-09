@@ -6,28 +6,14 @@
 ;; TODO Default sort order should place [a-z] before punctuation
 
 
-(setq
- hippie-expand-try-functions-list
- '(try-expand-dabbrev
-   try-expand-dabbrev-all-buffers
-   try-expand-dabbrev-from-kill
-   try-complete-file-name-partially
-   try-complete-file-name
-   try-expand-all-abbrevs
-   try-expand-list
-   try-expand-line
-   try-complete-lisp-symbol-partially
-   try-complete-lisp-symbol))
+;; (setq tab-always-indent 'complete)
+;; (add-to-list 'completion-styles 'initials t)
 
-
-(setq tab-always-indent 'complete)
-(add-to-list 'completion-styles 'initials t)
-
-(when (maybe-require-package 'company)
-  (add-hook 'prog-mode-hook 'company-mode)
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
-  )
+;; (when (maybe-require-package 'company)
+;;   (add-hook 'prog-mode-hook 'company-mode)
+;;   (setq company-idle-delay 0)
+;;   (setq company-minimum-prefix-length 1)
+;;   )
 
 ;; (when (maybe-require-package 'company)
 ;;   (add-hook 'after-init-hook 'global-company-mode)

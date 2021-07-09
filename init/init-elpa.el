@@ -3,6 +3,7 @@
 ;;; Code:
 
 (require 'package)
+(require 'cl-lib)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -18,8 +19,6 @@
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 ;;; On-demand installation of packages
-
-(require 'cl-lib)
 
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.

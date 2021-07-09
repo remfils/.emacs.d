@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(maybe-require-package 'json-mode)
-(maybe-require-package 'js2-mode)
+(require-package 'json-mode)
+(require-package 'js2-mode)
 
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|es6\\)\\(\\.erb\\)?\\'" . js2-mode))
 
