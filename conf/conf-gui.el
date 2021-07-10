@@ -65,6 +65,9 @@
 ;; frames
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; try not to split windows vertically
+(setq split-height-threshold nil)
+
 (require-package 'switch-window)
 (setq-default switch-window-shortcut-style 'alphabet)
 (setq-default switch-window-timeout nil)
