@@ -8,6 +8,10 @@
 ;;  - helm find files is slow at first
 ;;  - openwith
 
+
+;; WARN: this is security risck
+(setq package-check-signature nil) 
+
 (add-to-list 'load-path (expand-file-name "conf" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
 
