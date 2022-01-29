@@ -28,6 +28,7 @@
 (require 'init-cpp)
 (require 'init-multiple-cursors)
 (require 'init-avy)
+(require 'init-yasnippet)
 (require 'init-helm)
 (require 'init-dired)
 (require 'init-isearch)
