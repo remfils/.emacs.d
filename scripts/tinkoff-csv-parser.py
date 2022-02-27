@@ -7,15 +7,29 @@ csv_file = sys.argv[1]
 def get_amount(amount):
     return float(amount.replace(',', '.'))
 
-def get_expense_from_comment(comment):
-    return 'Expenses'
+def get_expense_from_comment(comment, currency):
+    if 'Пополнение брокерского счета' in comment: return 'Investments:' + currency
+
+    if 'Перекрёсток' in comment: return 'Expenses:Groceries'
+    if 'АТАК Супермаркеты' in comment: return 'Expenses:Groceries'
+    if 'Provolstvennyj' in comment: return 'Expenses:Groceries'
+    if 'Пятерочка' in comment: return 'Expenses:Groceries'
+
+    if 'Burger King' in comment: return 'Expenses:FastFood'
+    if 'McDonald\'s' in comment: return 'Expenses:FastFood'
+
+    if 'Kofejnya Dankin Donats' in comment: return 'Expenses:Deserts:Donuts'
+
+    if 'пополнение счета' in comment: return 'Trade'
+
+    return 'Expenses:???'
 
 def get_currency(currency):
     if currency == 'RUB':
-        return ''
+        return 'RUB'
     return currency
 
-with open(csv_file) as f:
+with open(csv_file, encoding="cp1251") as f:
     tinkreader = csv.reader(f, delimiter=';', quotechar='"')
 
     data = {}
@@ -33,9 +47,11 @@ with open(csv_file) as f:
         if not is_money_transfer and amount_1 != amount_2:
             raise Exception('amounts dont match ' + amount_1 + ' != ' + amount_2)
 
-        if status != 'OK':
+        if not (status == 'OK' or status == 'WAITING'):
             continue
-            # raise Exception('status is ' + status)
+
+        if status == 'WAITING':
+            comment = ' [WAITING] ' + comment
 
         datetime = datetime.strptime(date, '%d.%m.%Y')
 
@@ -43,7 +59,7 @@ with open(csv_file) as f:
             data[datetime] = []
 
         if is_money_transfer:
-            comment = comment + f' / convert [{amount_1} {cur_1} -> {amount_2} {cur_2}]'
+            comment = comment + f' / convert ({amount_1} {cur_1} -> {amount_2} {cur_2})'
             data[datetime].append((amount_2, cur_2, category + ' / ' + comment))
         else:
             data[datetime].append((amount_1, cur_1, category + ' / ' + comment))
@@ -53,10 +69,13 @@ with open(csv_file) as f:
         ledger_msg = date.strftime('%Y/%m/%d') + ' * \n'
         
         for amount, currency, comment in lines:
-            ledger_dt_amount = get_amount(amount)
-            ledger_kt_amount = -1 * ledger_dt_amount
-            ledger_expense = get_expense_from_comment(comment)
+            ledger_asset_amount = get_amount(amount)
+            ledger_expense_amount = -1 * ledger_asset_amount
             ledger_currency = get_currency(currency)
-
-            ledger_msg = ledger_msg + f'    {ledger_expense}    {ledger_kt_amount} {ledger_currency} ;; {comment}\n' + f'    Assets:TINK    {ledger_dt_amount} {ledger_currency}\n'
+            ledger_expense = get_expense_from_comment(comment, ledger_currency)
+            
+            if ledger_asset_amount > 0:
+                ledger_msg = ledger_msg + f'    {ledger_expense}    {ledger_expense_amount} {ledger_currency} ;; {comment}\n' + f'    Assets:TINK:{ledger_currency}    {ledger_asset_amount} {ledger_currency}\n'
+            else:
+                ledger_msg = ledger_msg + f'    Assets:TINK:{ledger_currency}    {ledger_asset_amount} {ledger_currency}\n' + f'    {ledger_expense}    {ledger_expense_amount} {ledger_currency} ;; {comment}\n'
         print(ledger_msg)
