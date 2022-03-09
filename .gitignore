@@ -8,3 +8,7 @@ chronometrist.sexp
 tramp
 /.cask/
 recentf
+network-security.data
+.mc-lists.el
+transient/
+custom.el
