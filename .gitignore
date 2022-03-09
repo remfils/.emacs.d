@@ -12,3 +12,4 @@ network-security.data
 .mc-lists.el
 transient/
 custom.el
+.lsp-session-v1
