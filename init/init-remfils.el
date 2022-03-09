@@ -138,5 +138,16 @@
       (kill-new filename)
       (message filename))))
 
+
+;; NOTE: copy from
+;; https://stackoverflow.com/questions/3035337/in-emacs-can-you-evaluate-an-emacs-lisp-expression-and-replace-it-with-the-resul
+(defun remfils/replace-last-sexp ()
+    (interactive)
+    (let ((value (eval (preceding-sexp))))
+      (kill-sexp -1)
+      (insert (format "%S" value))))
+(global-set-key (kbd "C-c C-j") 'remfils/replace-last-sexp)
+
+
 (provide 'init-remfils)
 ;;; init-windows.el ends here
