@@ -6,7 +6,7 @@
 
 (require-package 'avy)
 
-(global-set-key (kbd "C-c j") 'avy-goto-char)
+(global-set-key (kbd "C-c j") 'avy-goto-word-1)
 
 (setq avy-background t)
 

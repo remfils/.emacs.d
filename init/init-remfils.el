@@ -122,5 +122,21 @@
   (delete-region (region-beginning) (region-end)) ;; delete the rest
   )
 
+
+(defun my-put-file-name-on-clipboard ()
+  "Put the current file name on the clipboard"
+  (interactive)
+  )
+
+(defun remfils/kill-abs-file-path()
+  (interactive)
+  (let ((filename
+         (if (equal major-mode 'dired-mode)
+             default-directory
+           (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message filename))))
+
 (provide 'init-remfils)
 ;;; init-windows.el ends here

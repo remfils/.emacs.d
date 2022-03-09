@@ -56,7 +56,7 @@
                            (?C . (:foreground "OliveDrab"))))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w!)" "|" "DONE(d!)" "CANCELED(c!)")))
+      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELED(c)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" . org-warning) ("WAIT" . "orange")

@@ -29,14 +29,18 @@
 ;; DEBUG: this is note
 ;; NOTE: this is note
 ;; WARN: this is note
+;; IMPORTANT: this is note
 
 (require-package 'hl-todo)
 (setq hl-todo-keyword-faces
       '(("TODO"   . "#b22222")
         ("NOTE"  . "#228b22")
         ("DEBUG"  . "#ff0000")
-        ("WARN" . "#FF4500")))
+        ("WARN" . "#FF4500")
+        ("IMPORTANT" . "#d15fee")))
 (add-hook 'prog-mode-hook (lambda() (hl-todo-mode)))
+
+(setq web-mode-enable-auto-indentation nil)
 
 
 
@@ -46,26 +50,56 @@
   (if (bound-and-true-p lsp-mode)
       (progn
         (lsp-disconnect)
-        (lsp-mode -1)
-        (company-mode -1))
+        (lsp-mode -1))
     (progn
       (setq-local
        lsp-clients-php-server-command (quote ("php" "/home/remfils/Projects/tresio/vendor/felixfbecker/language-server/bin/php-language-server.php")))
-      (company-mode)
       (lsp)
       (define-key lsp-mode-map (kbd "C-x C-l") lsp-command-map))))
 
 
-(add-hook
- 'php-mode-hook
- (lambda ()
-   (local-set-key [f5] #'web-mode)
-   (local-set-key [f6] 'remfils-php/toggle-lsp-mode)))
+;; optimisations
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+;; (setq gc-cons-threshold 100000000)
+;; (setq read-process-output-max (* 1024 1024))
 
-(add-hook
- 'web-mode-hook
- (lambda ()
-   (local-set-key [f5] #'php-mode)))
+
+;; not used company backends
+; company-bbdb ; emails
+;;company-semantic ; some semantic autocompletion,more here: http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html
+;;company-cmake
+;(company-dabbrev-code company-gtags company-etags company-keywords)
+;;company-oddmuse
+;company-dabbrev
+; company-keywords
+
+
+
+(defun remfils/php-mode-hook ()
+  (local-set-key [f5] #'web-mode)
+  (local-set-key [f6] 'remfils-php/toggle-lsp-mode)
+  (setq php-mode-template-compatibility nil)
+  ;; company configuration
+  (setq
+   company-backends
+   '(;company-tabnine
+     company-capf
+     company-clang
+     company-files
+     company-elisp))
+  (setq company-tooltip-limit 20)
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0)
+  (setq company-echo-delay 0)
+  (company-mode))
+(add-hook 'php-mode-hook 'remfils/php-mode-hook)
+
+
+
+(defun remfils/web-mode-hook ()
+  (local-set-key [f5] #'php-mode)
+  (local-set-key '[backtab] 'indent-relative))
+(add-hook 'web-mode-hook 'remfils/web-mode-hook)
 
 
 ;; (after-load 'company
