@@ -3,9 +3,15 @@
 ;;; Code:
 
 (require-package 'php-mode)
+(require-package 'company-php)
+(require-package 'ac-php)
 (require-package 'web-mode)
-(require-package 'lsp-mode)
 (require-package 'company)
+
+(require-package 'emmet-mode)
+
+;; TODO: 
+(require-package 'flycheck)
 
 ;; (require-package 'company-php)
 
@@ -15,32 +21,65 @@
 ;; TODO: emmet mode maybe?
 ;; TODO: some basic flycheck config
 
-(setq lsp-enable-indentation nil)
-(setq lsp-enable-on-type-formatting nil)
-
-
 (setq company-dabbrev-downcase 0)
 (setq company-idle-delay 0)
 
 
-;; TODO: move to separate file
-;; test colors
-;; TODO: this is note
-;; DEBUG: this is note
-;; NOTE: this is note
-;; WARN: this is note
-;; IMPORTANT: this is note
-
-(require-package 'hl-todo)
-(setq hl-todo-keyword-faces
-      '(("TODO"   . "#b22222")
-        ("NOTE"  . "#228b22")
-        ("DEBUG"  . "#ff0000")
-        ("WARN" . "#FF4500")
-        ("IMPORTANT" . "#d15fee")))
-(add-hook 'prog-mode-hook (lambda() (hl-todo-mode)))
-
 (setq web-mode-enable-auto-indentation nil)
+
+
+(add-hook
+ 'web-mode-hook
+ '(lambda ()
+    (emmet-mode)
+    (define-key emmet-mode-keymap (kbd "C-j") nil)
+    (define-key web-mode-map (kbd "C-c C-j")
+      'emmet-expand-line)))
+
+(add-hook
+ 'html-mode-hook
+ '(lambda ()
+    (emmet-mode)
+    (define-key emmet-mode-keymap (kbd "C-j") nil)
+    (define-key html-mode-map (kbd "C-c C-j")
+      'emmet-expand-line)))
+
+(add-hook
+ 'php-mode-hook
+ '(lambda ()
+    ;; (auto-complete-mode t)
+    ;; (require 'ac-php)
+    ;; (setq ac-sources '(ac-source-php))
+    ;; (ac-php-core-eldoc-setup)
+
+    (company-mode t)
+    (ac-php-core-eldoc-setup)
+    (make-local-variable 'company-backends)
+    (setq company-backends '(company-ac-php-backend company-files))
+    ;;; (setq company-backends (delete 'company-dabbrev company-backends))
+    ;; (add-to-list 'company-backends 'company-files)
+
+    ;; Enable company-mode
+    ;;(company-mode t)
+
+    ;; (set (make-local-variable 'company-backends)
+    ;;      '((company-ac-php-backend)
+    ;;        company-capf company-files))
+
+    
+    ;;(setq ac-sources '(ac-source-php))
+    
+    ;;(ac-php-core-eldoc-setup)
+
+    ;; Jump to definition (optional)
+    ;; (define-key php-mode-map (kbd "M-]")
+    ;;   'ac-php-find-symbol-at-point)
+
+    ;; ;; Return back (optional)
+    ;; (define-key php-mode-map (kbd "M-[")
+    ;;   'ac-php-location-stack-back)
+    ))
+
 
 
 

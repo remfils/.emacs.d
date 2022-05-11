@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+(require 'conf-package)      ;; Machinery for installing required packages
 
 (if (fboundp 'with-eval-after-load)
     (defalias 'after-load 'with-eval-after-load)
@@ -19,6 +20,8 @@
   "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+
 
 (provide 'conf-init)
 ;;; init-git.el ends here

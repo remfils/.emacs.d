@@ -55,5 +55,5 @@ locate PACKAGE."
   (require-package 'gnu-elpa-keyring-update))
 
 
-(provide 'init-elpa)
+(provide 'conf-package)
 ;;; init-elpa.el ends here

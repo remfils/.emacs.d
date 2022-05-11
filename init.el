@@ -10,26 +10,26 @@
 
 
 ;; WARN: this is security risck
-(setq package-check-signature nil) 
+;; (setq package-check-signature nil) 
 
 (add-to-list 'load-path (expand-file-name "conf" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
 
-(require 'init-benchmarking)
+;; (require 'init-benchmarking)
 
 (require 'conf-init)
-
-(require 'init-elpa)      ;; Machinery for installing required packages
 
 (require 'conf-gui)
 (require 'conf-edit)
 (require 'conf-org)
 
+
+(require 'init-helm)
 (require 'init-cpp)
 (require 'init-multiple-cursors)
 (require 'init-avy)
 (require 'init-yasnippet)
-(require 'init-helm)
+
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-hippie-expand)
@@ -38,8 +38,8 @@
 (require 'init-php)
 (require 'init-python)
 (require 'init-ledger)
-(require 'init-csharp)
-(require 'init-openwith)
+;; (require 'init-csharp)
+;; (require 'init-openwith)
 (require 'init-remfils)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -78,6 +78,25 @@
  version-control t
  )
 
+
+;; TODO: move to separate file
+;; test colors
+;; TODO: this is note
+;; DEBUG: this is note
+;; NOTE: this is note
+;; WARN: this is note
+;; IMPORTANT: this is note
+
+(require-package 'hl-todo)
+(setq hl-todo-keyword-faces
+      '(("TODO"   . "#b22222")
+        ("NOTE"  . "#228b22")
+        ("DEBUG"  . "#ff0000")
+        ("WARN" . "#FF4500")
+        ("IMPORTANT" . "#d15fee")))
+(add-hook 'prog-mode-hook (lambda() (hl-todo-mode)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hotkeys
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
