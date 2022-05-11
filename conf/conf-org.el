@@ -107,7 +107,7 @@ typical word processor."
 
           ;; go fullscreen
 
-          (toggle-frame-fullscreen)
+          ;; (toggle-frame-fullscreen)
 
           ;; change theme
 
@@ -116,9 +116,9 @@ typical word processor."
           
           ;; setup window margins
 
-          (setq left-margin-width (get-golden-ratio-margin))
-          (setq right-margin-width (get-golden-ratio-margin))
-          (set-window-buffer nil (current-buffer))
+          ;; (setq left-margin-width (get-golden-ratio-margin))
+          ;; (setq right-margin-width (get-golden-ratio-margin))
+          ;; (set-window-buffer nil (current-buffer))
           
           )
       (kill-local-variable 'truncate-lines)
@@ -146,7 +146,7 @@ typical word processor."
       (setq right-margin-width nil)
       (set-window-buffer nil (current-buffer))
 
-      (toggle-frame-fullscreen)
+      ;; (toggle-frame-fullscreen)
       )))
 
 

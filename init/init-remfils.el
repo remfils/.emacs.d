@@ -149,5 +149,18 @@
 (global-set-key (kbd "C-c C-j") 'remfils/replace-last-sexp)
 
 
+;; create org log file
+
+;; TODO: insert this part
+;;;; #+TITLE: Военкомат, Лагунов и ленивая работа
+;;;; #+DATE: 2022-04-26
+
+(defun remfils/create-journal-file ()
+  (interactive)
+  (let ((file-name (concat (format-time-string "%Y-%m-%d") "__.org")))
+    (find-file file-name)
+    (prose-mode)))
+
+
 (provide 'init-remfils)
 ;;; init-windows.el ends here
