@@ -1,0 +1,11 @@
+* лог работы
+** <2022-05-15 âñ 20:45>
+
+из понравившихся комманд и их результатов
+
+ledger reg -f "c:\Users\Vlad Pereskokov\Documents\Org\ledger-now\ledger-2022.sm" --period "this year" --flat "True" --no-total "True" --weekly "True" Groceries"
+
+показывает понедельные/момесячные расходы на продукты + покзывает итог
+
+--weekly
+--monthly

@@ -17,12 +17,13 @@ def get_expense_from_comment(comment, currency):
 
     if 'Burger King' in comment: return 'Expenses:FastFood'
     if 'McDonald\'s' in comment: return 'Expenses:FastFood'
+    if 'KFC' in comment: return 'Expenses:FastFood'
 
     if 'Kofejnya Dankin Donats' in comment: return 'Expenses:Deserts:Donuts'
 
     if 'пополнение счета' in comment: return 'Trade'
 
-    return 'Expenses:???'
+    return 'Expenses:UNK'
 
 def get_currency(currency):
     if currency == 'RUB':
@@ -37,7 +38,7 @@ with open(csv_file, encoding="cp1251") as f:
     next(tinkreader)
     for row in tinkreader:
         # '01.10.2021 11:35:51', '01.10.2021', '*6364', 'OK', '-70,00', 'RUB', '-70,00', 'RUB', '', 'Рестораны', '5812', 'Kofe S Sovoi', '0,00', '0,00', '70,00'
-        _, date, _, status, amount_1, cur_1, amount_2, cur_2, _, category, _, comment, _,_,_ = row
+        operation_date, date, _, status, amount_1, cur_1, amount_2, cur_2, _, category, _, comment, _,_,_ = row
 
         is_money_transfer = False
 
@@ -53,7 +54,10 @@ with open(csv_file, encoding="cp1251") as f:
         if status == 'WAITING':
             comment = ' [WAITING] ' + comment
 
-        datetime = datetime.strptime(date, '%d.%m.%Y')
+        if len(date) < 3:
+            datetime = datetime.strptime(operation_date.split()[0], '%d.%m.%Y')
+        else:
+            datetime = datetime.strptime(date, '%d.%m.%Y')
 
         if not datetime in data.keys():
             data[datetime] = []
