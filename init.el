@@ -31,9 +31,18 @@
 (require 'init-ledger)
 (require 'init-php)
 (require 'init-python)
-;; (require 'init-csharp)
-;; (require 'init-openwith)
 (require 'init-remfils)
+
+
+;; unset after all modes are init
+(require 'conf-unset-keybingings)
+
+
+;; TODO: why was the end?
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+(require 'conf-capture-sync)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Allow access from emacsclient
@@ -44,10 +53,5 @@
             (unless (server-running-p)
               (server-start))))
 
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
-
-(require 'conf-capture-sync)
 
 (provide 'init)
