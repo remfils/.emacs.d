@@ -149,6 +149,17 @@
 (global-set-key (kbd "C-c C-j") 'remfils/replace-last-sexp)
 
 
+(defun remfils/fedora/open-in-vs-code-current-file ()
+  (interactive)
+  (let ((filename
+         (if (equal major-mode 'dired-mode)
+             default-directory
+           (buffer-file-name)))
+        (linenumber (line-number-at-pos)))
+    (when filename
+      (async-shell-command (concat "code " filename ":" (number-to-string linenumber) " --goto")))))
+
+
 ;; create org log file
 
 ;; TODO: insert this part
