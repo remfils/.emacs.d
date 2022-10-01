@@ -47,11 +47,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Allow access from emacsclient
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'after-init-hook
-          (lambda ()
-            (require 'server)
-            (unless (server-running-p)
-              (server-start))))
 
+(defun remfils/after-init-hook ()
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))
+(add-hook 'after-init-hook 'remfils/after-init-hook)
 
 (provide 'init)

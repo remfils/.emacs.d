@@ -133,6 +133,8 @@ This is useful when followed by an immediate kill."
 
 (global-set-key (kbd "M-Q") 'unfill-paragraph)
 
+(global-set-key (kbd "C-j") 'newline)
+
 ;; smarter ctrl-a
 
 (defun smarter-move-beginning-of-line (arg)
@@ -189,6 +191,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq-default dired-dwim-target t)
+
 
 (provide 'conf-edit)
 ;;; init-editing-utils.el ends here
