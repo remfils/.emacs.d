@@ -3,17 +3,15 @@
 ;;; Code:
 
 (require-package 'php-mode)
-(require-package 'company-php)
-(require-package 'ac-php)
+
+;(require-package 'ac-php)
 (require-package 'web-mode)
-(require-package 'company)
 
 (require-package 'emmet-mode)
 
 ;; TODO: 
 (require-package 'flycheck)
 
-;; (require-package 'company-php)
 
 ;; TODO: clean up all this
 ;; TODO: configure run init tests command
@@ -21,11 +19,17 @@
 ;; TODO: emmet mode maybe?
 ;; TODO: some basic flycheck config
 
-(setq company-dabbrev-downcase 0)
-(setq company-idle-delay 0)
+;; (setq company-dabbrev-downcase 0)
+;; (setq company-idle-delay 0)
 
 
 (setq web-mode-enable-auto-indentation nil)
+
+
+;; (setq-default company-tooltip-limit 20)
+;; (setq-default company-show-numbers t)
+;; (setq-default company-idle-delay 0)
+;; (setq-default company-echo-delay 0)
 
 
 (add-hook
@@ -52,10 +56,10 @@
     ;; (setq ac-sources '(ac-source-php))
     ;; (ac-php-core-eldoc-setup)
 
-    (company-mode t)
-    (ac-php-core-eldoc-setup)
-    (make-local-variable 'company-backends)
-    (setq company-backends '(company-ac-php-backend company-files))
+    ;(company-mode t)
+    ;(ac-php-core-eldoc-setup)
+    ;(make-local-variable 'company-backends)
+    ;(setq company-backends '(company-ac-php-backend company-files))
     ;;; (setq company-backends (delete 'company-dabbrev company-backends))
     ;; (add-to-list 'company-backends 'company-files)
 
@@ -119,18 +123,19 @@
   (local-set-key [f6] 'remfils-php/toggle-lsp-mode)
   (setq php-mode-template-compatibility nil)
   ;; company configuration
-  (setq
-   company-backends
-   '(;company-tabnine
-     company-capf
-     company-clang
-     company-files
-     company-elisp))
-  (setq company-tooltip-limit 20)
-  (setq company-show-numbers t)
-  (setq company-idle-delay 0)
-  (setq company-echo-delay 0)
-  (company-mode))
+  ;; (setq
+  ;;  company-backends
+  ;;  '(;company-tabnine
+  ;;    company-capf
+  ;;    company-clang
+  ;;    company-files
+  ;;    company-elisp))
+  ;; (setq company-tooltip-limit 20)
+  ;; (setq company-show-numbers t)
+  ;; (setq company-idle-delay 0)
+  ;; (setq company-echo-delay 0)
+  ;;(company-mode)
+  )
 (add-hook 'php-mode-hook 'remfils/php-mode-hook)
 
 

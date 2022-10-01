@@ -13,7 +13,12 @@
             ;; (setq-default js2-mode-show-parse-errors nil
             ;;               js2-mode-show-strict-warnings nil)
             
-            (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (setq mode-name "JS2")
+              ;; NOTE: no sompany mode...
+              ;; (company-mode t)
+              ))
 
             (js2-imenu-extras-setup))
 
