@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq-default dired-dwim-target t)
 
 ;; TODO: figure out how to work these keys
 ;; (require 'dired-x)

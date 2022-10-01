@@ -24,20 +24,13 @@
 (require 'conf-org)
 
 
-(require 'init-helm)
-(require 'init-cpp)
-(require 'init-multiple-cursors)
 (require 'init-avy)
-(require 'init-yasnippet)
-
-(require 'init-dired)
-(require 'init-isearch)
-(require 'init-hippie-expand)
-(require 'init-git)
+(require 'init-cpp)
+(require 'init-helm)
 (require 'init-js)
+(require 'init-ledger)
 (require 'init-php)
 (require 'init-python)
-(require 'init-ledger)
 ;; (require 'init-csharp)
 ;; (require 'init-openwith)
 (require 'init-remfils)
