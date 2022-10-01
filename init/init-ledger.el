@@ -27,8 +27,11 @@
 
 (defun remfils/insert-tinkoff-file (f)
   (interactive "fCsv file: ")
-  (let ((csv-parser-location (expand-file-name "~/.emacs.d/scripts/tinkoff-csv-parser.py")))
-    (insert (shell-command-to-string (format "python \"%s\" \"%s\"" csv-parser-location f)))))
+  
+  (let ((current-buffer-position (mark-marker))
+        (csv-parser-location (expand-file-name "~/.emacs.d/scripts/tinkoff-csv-parser.py")))
+    (insert (shell-command-to-string (format "python \"%s\" \"%s\"" csv-parser-location f)))
+    (goto-char current-buffer-position)))
 ;; cb rf
 
 (defun remfils/load-currencies-to-buffer()
