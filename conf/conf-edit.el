@@ -37,6 +37,8 @@
 
 (add-hook 'after-init-hook 'transient-mark-mode)
 
+(setq system-time-locale "C")
+
 (setq default-input-method "russian-computer")
 
 (setq ispell-local-dictionary "ru")
@@ -191,6 +193,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq-default dired-dwim-target t)
+
+;(setq-default dired-listing-switches "-agho --group-directories-first")
 
 
 (provide 'conf-edit)
