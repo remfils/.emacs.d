@@ -22,10 +22,10 @@
 
     ;;;; TODO: finish ok path
     (setq remfils/diary-file-location (concat sync-org-path "diary.org"))
-    ;; (setq remfils/task-file-location (concat sync-org-path "tasks.org"))
-    ;; (setq remfils/journal-file-location (concat sync-org-path "journal/j.org"))
-    ;; (setq remfils/notes-file-location (concat sync-org-path "notes/notes.org"))
-    ;; (setq remfils/code-file-location (concat sync-org-path "capture/code.org"))
+    (setq remfils/task-file-location (concat sync-org-path "refile.org"))
+    (setq remfils/journal-file-location (concat sync-org-path "refile.org"))
+    (setq remfils/notes-file-location (concat sync-org-path "refile.org"))
+    (setq remfils/code-file-location (concat sync-org-path "refile.org"))
 
     (let
         ((my-org-agenda-files

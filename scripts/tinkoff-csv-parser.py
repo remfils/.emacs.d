@@ -14,10 +14,14 @@ def get_expense_from_comment(comment, currency):
     if 'АТАК Супермаркеты' in comment: return 'Expenses:Groceries'
     if 'Provolstvennyj' in comment: return 'Expenses:Groceries'
     if 'Пятерочка' in comment: return 'Expenses:Groceries'
-
+    if 'Дикси' in comment: return 'Expenses:Groceries'
+    if 'ВкусВилл' in comment: return 'Expenses:Groceries'
+    if 'Вкусно — и точка' in comment: return 'Expenses:Groceries'
+    
     if 'Burger King' in comment: return 'Expenses:FastFood'
     if 'McDonald\'s' in comment: return 'Expenses:FastFood'
     if 'KFC' in comment: return 'Expenses:FastFood'
+    if 'Додо Пицца' in comment: return 'Expenses:FastFood'
 
     if 'Kofejnya Dankin Donats' in comment: return 'Expenses:Deserts:Donuts'
 
