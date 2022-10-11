@@ -38,6 +38,8 @@
 
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
+(setq helm-buffer-max-length 40)
+
 ;; TODO: clean up
 
 ;; (defun remfils/helm-switch-other-window-horizontally ()
