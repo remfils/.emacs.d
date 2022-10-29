@@ -8,10 +8,16 @@
 ;; - study http://doc.norang.ca/org-mode.html
 
 (require 'org)
+(require 'epa-file)
+(epa-file-enable)
+
 (require-package 'org-cliplink)
 
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
+
+(define-key global-map (kbd "C-c k c") 'epa-encrypt-region)
+(define-key global-map (kbd "C-c k d") 'epa-decrypt-region)
 
 (after-load
     'org-agenda
