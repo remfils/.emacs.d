@@ -11,6 +11,7 @@ DEBUG=True
 
 CSV_BAL_FORMAT = '%D,%(account),%(scrub(total))\\n'
 CSV_REG_FORMAT = '%D,%(account),%(scrub(amount))\\n'
+CSV_REG_FORMAT_WITH_COMMENT = '%D,%(account),%(scrub(amount)),%(payee)\\n'
 
 def dict_to_ledger_param_string(params):
     result = []
@@ -57,16 +58,24 @@ def execute_ledger_command(mode, ledger_file, query, params):
 ## dataframes
 ####################################################################################################
 
-def create_date_label_total_dataframe(lines):
+def create_date_label_total_dataframe(lines, include_comments=False):
     dates = []
     labels = []
     totals = []
+    comments = []
 
     for line in lines:
         if len(line) == 0:
             continue
 
-        date, label, total = line.split(',')
+        items = line.split(',')
+        date = items[0]
+        label = items[1]
+        total = items[2]
+
+        if include_comments:
+            comment = items[3]
+            comments.append(comment)
 
         date = datetime.strptime(date, '%Y/%m/%d') # datetime format: 2022/05/15
 
@@ -76,8 +85,15 @@ def create_date_label_total_dataframe(lines):
         labels.append(label)
         totals.append(total)
 
-    return pd.DataFrame({'date': dates, 'label': labels, 'total': totals})
+    print(len(dates), len(comments))
 
+    result = None
+    if not include_comments:
+        result = pd.DataFrame({'date': dates, 'label': labels, 'total': totals})
+    else:
+        result = pd.DataFrame({'date': dates, 'label': labels, 'total': totals, 'comment': comments})
+
+    return result
 
 colorCounter = 0
 def color_fn(key):
@@ -139,12 +155,14 @@ def expenses_plot(ledger_file, period):
     ax.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
     ax.invert_yaxis()
     ax.set_xlabel("RUB")
-    ax.set_title("Expenses in last month")
+    ax.set_title("Expenses")
 
     # Add annotation to bars
     bar_x_offset = dt['total'].max() * 0.01
     for i in ax.patches:
-        plt.text(i.get_width()+bar_x_offset, i.get_y()+0.5, str(round((i.get_width()), 2)), fontsize = 10, fontweight ='normal', color ='gray')
+        barWidth = i.get_width()
+        barWidth = barWidth if barWidth > 0 else 0
+        plt.text(barWidth + bar_x_offset, i.get_y()+0.5, str(round((i.get_width()), 2)), fontsize = 10, fontweight ='normal', color ='gray')
 
     # text_ax
     text_ax.set_yticklabels([])
@@ -163,16 +181,24 @@ def expenses_plot(ledger_file, period):
     lines = [line.strip().replace('Expenses:', '').split() for line in top_5_expenses_label.split('\n')]
     max_length = max([len(l[0]) for l in lines])
 
-    top_5_expenses_label = '\n'.join(['  ' + label.ljust(max_length, ' ') +' ' + str(total) for (label, total) in lines])
+    top_5_expenses_label = '\n'.join(['    ' + label.ljust(max_length, ' ') +' ' + str(total) for (label, total) in lines])
+
+    input_parameters = 'period = [' + period + ']'
     
     current_date = date.today().strftime('%Y/%m/%d')
-    msg = f'''Plot date: {current_date}
+    msg = f'''Plot date
+    {current_date}
 
 Total expenses:
     {total_expenses}
 
 Top 5 expenses this month
-{top_5_expenses_label}'''
+{top_5_expenses_label}
+
+
+
+----------Parameters----------
+{input_parameters}'''
     text_ax.text(0.05, 0.95, msg, fontsize=10, color='black', horizontalalignment='left', verticalalignment='top', family='monospace')
 
     fig.tight_layout()
@@ -255,7 +281,8 @@ def master_pie_chart(ledger_file, period):
     total = dt['total'].sum()
     current_date = date.today().strftime('%Y/%m/%d')
 
-    msg = f'''Plot date: {current_date}
+    msg = f'''Plot date:
+    {current_date}
 
 Total:
     {total}
@@ -264,6 +291,67 @@ Total:
     text_ax.text(0.05, 0.95, msg, fontsize=10, color='black', horizontalalignment='left', verticalalignment='top', family='monospace')
 
     fig.tight_layout()
+
+
+def wallet_change_time_track(ledger_file, query, period):
+    params = {
+        'format': CSV_REG_FORMAT_WITH_COMMENT,
+        'period': period,
+        'flat': True,
+        'no-total': True
+    }
+
+    lines = execute_ledger_command('reg', ledger_file, query, params)
+
+    dt = create_date_label_total_dataframe(lines, True);
+
+    fig, (text_ax, ax) = plt.subplots(figsize =(16, 9), ncols=2, gridspec_kw={'width_ratios': [4, 10]})
+
+    dt.loc[0, 'result'] = dt.loc[0, 'total']
+    for i in range(1, len(dt)):
+        dt.loc[i, 'result'] = dt.loc[i - 1, 'result'] + dt.loc[i, 'total']
+    
+    ax.plot(dt['date'], dt['result'], linestyle='--', marker='o', color=color_fn(query))
+
+    for i in range(0, len(dt)):
+        ax.text(
+            dt.loc[i, 'date'], dt.loc[i, 'result'] + 2000, dt.loc[i, 'comment'],
+            fontsize=8,
+            rotation=45, ha='left', va='bottom'
+        )
+
+    
+    plt.ylim(ymin=0)
+
+
+    text_ax.set_yticklabels([])
+    text_ax.set_xticklabels([])
+    text_ax.xaxis.set_ticks_position('none')
+    text_ax.yaxis.set_ticks_position('none')
+
+    text_ax.set_title('Plot values')
+    for s in ['top', 'bottom', 'left', 'right']:
+        text_ax.spines[s].set_visible(False)
+
+
+    current_date = date.today().strftime('%Y/%m/%d')
+
+    total_earned = dt.loc[len(dt)-1, 'result'] - dt.loc[0, 'result']
+
+    msg = f'''Plot date:
+    {current_date}
+
+Total earned:
+    {total_earned}
+
+'''
+    text_ax.text(0.05, 0.95, msg, fontsize=10, color='black', horizontalalignment='left', verticalalignment='top', family='monospace')
+    # dt.total
+
+    # print(dt.head())
+    # dt = create_date_label_total_dataframe(lines)
+
+    # print(dt.head())
 
 ####################################################################################################
 ## main
@@ -285,6 +373,9 @@ if __name__ == '__main__':
         plt.show()
     elif args.mode == 'master-pie':
         master_pie_chart(args.file, args.period)
+        plt.show()
+    elif args.mode == 'change-track':
+        wallet_change_time_track(args.file, 'Black Day', args.period)
         plt.show()
     else:
         print('command not found')

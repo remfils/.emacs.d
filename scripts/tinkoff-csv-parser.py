@@ -16,8 +16,8 @@ def get_expense_from_comment(comment, currency):
     if 'Пятерочка' in comment: return 'Expenses:Groceries'
     if 'Дикси' in comment: return 'Expenses:Groceries'
     if 'ВкусВилл' in comment: return 'Expenses:Groceries'
-    if 'Вкусно — и точка' in comment: return 'Expenses:Groceries'
     
+    if 'Вкусно — и точка' in comment: return 'Expenses:FastFood'
     if 'Burger King' in comment: return 'Expenses:FastFood'
     if 'McDonald\'s' in comment: return 'Expenses:FastFood'
     if 'KFC' in comment: return 'Expenses:FastFood'
