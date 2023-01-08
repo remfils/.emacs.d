@@ -6,9 +6,6 @@
 ;; Example: (setq sync-org-path "~/Documents/SyncOrg/")
 
 
-;;; TODO:
-;; - completly redo capture templates
-
 ;;; Code:
 
 (let
