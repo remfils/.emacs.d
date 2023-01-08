@@ -38,7 +38,7 @@
   (setq org-capture-templates
         `(
           ("t" "Todo" entry (file+headline ,@remfils/task-file-location "Tasks")
-           "** TODO %?\n   SCHEDULED: %T")
+           "** TODO %?\n%T")
           ("e" "Event log" entry (file+headline ,@remfils/event-log-file-location "Event logs")
            "* %T%?       :elog:\n:PROPERTY:\n:CATEGORY: event-log\n:END:\n")
           ("j" "Journal" entry (file+headline ,@remfils/journal-file-location "Journal")
