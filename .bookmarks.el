@@ -14,7 +14,7 @@
  (position . 39952))
 ("org-capture-last-stored"
  (filename . "~/Documents/Org/diary.org")
- (front-context-string . "** <2022-11-14 M")
- (rear-context-string . "P MESSAGE-----\n")
- (position . 56582))
+ (front-context-string . "** <2023-01-03 T")
+ (rear-context-string . "| 1:40 |\n#+END:\n")
+ (position . 69863))
 )

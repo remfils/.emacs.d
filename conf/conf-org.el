@@ -156,5 +156,24 @@ typical word processor."
       )))
 
 
+(let ((fringe-default-foreground (face-foreground 'fringe))
+      (fringe-default-background (face-background 'fringe)))
+
+  (add-hook
+   'org-clock-in-hook
+   (lambda ()
+     (set-face-attribute
+      'fringe nil
+      :foreground (face-foreground 'org-clock-overlay)
+      :background (face-background 'org-clock-overlay))))
+  (add-hook
+   'org-clock-out-hook
+   (lambda ()
+     (set-face-attribute
+      'fringe nil
+      :foreground fringe-default-foreground
+      :background fringe-default-background))))
+
+
 (provide 'conf-org)
 ;;; init-org.el ends here
