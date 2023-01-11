@@ -5,13 +5,15 @@
 (require 'package)
 (require 'cl-lib)
 
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;; Official MELPA Mirror, in case necessary.
-  ;;(add-to-list 'package-archives (cons "melpa-mirror" (concat proto "://www.mirrorservice.org/sites/melpa.org/packages/")) t)
-  )
+;; (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+;;                     (not (gnutls-available-p))))
+;;        (proto (if no-ssl "http" "https")))
+;;   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+;;   ;; Official MELPA Mirror, in case necessary.
+;;   ;;(add-to-list 'package-archives (cons "melpa-mirror" (concat proto "://www.mirrorservice.org/sites/melpa.org/packages/")) t)
+;;   )
+
+(add-to-list 'package-archives '("MELPA" . "https://melpa.org/packages/") t)
 
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
@@ -51,8 +53,8 @@ locate PACKAGE."
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(let ((package-check-signature nil))
-  (require-package 'gnu-elpa-keyring-update))
+;; (let ((package-check-signature nil))
+;;   (require-package 'gnu-elpa-keyring-update))
 
 
 (provide 'conf-package)

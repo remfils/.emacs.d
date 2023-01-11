@@ -13,3 +13,4 @@ network-security.data
 transient/
 custom.el
 .lsp-session-v1
+/eln-cache/

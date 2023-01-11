@@ -6,7 +6,7 @@
 ;; (require-package 'helm-descbinds)
 ;; (require-package 'helm-ag)
 
-(require 'helm-config)
+(require 'helm-buffers)
 (require 'helm-files)
 ;; (require 'helm-eshell)
 
