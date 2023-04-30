@@ -10,6 +10,13 @@
 (require-package 'web-mode)
 (require-package 'emmet-mode)
 
+(require-package 'flycheck)
+
+(setq flycheck-php-phpmd-executable "/home/remfils/.config/composer/vendor/bin/phpmd")
+(setq flycheck-php-phpmd-executable "/home/remfils/.config/composer/vendor/bin/phpmd")
+(setq flycheck-phpmd-rulesets '("unusedcode"))
+(setq flycheck-standard-error-navigation nil)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; web mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,6 +49,7 @@
 (defun remfils/php-mode-hook ()
   (local-set-key [f5] #'web-mode)
   (local-set-key [f6] 'remfils-php/toggle-lsp-mode)
+  (flycheck-mode)
   (setq php-mode-template-compatibility nil))
 (add-hook 'php-mode-hook 'remfils/php-mode-hook)
 
@@ -57,6 +65,7 @@
 ;; (setq-default company-show-numbers t)
 ;; (setq-default company-idle-delay 0)
 ;; (setq-default company-echo-delay 0)
+
 
 
 (provide 'init-php)

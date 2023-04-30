@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: php-public-static-function
+# key: #psf
+# --
+public static function $0
+{
+}

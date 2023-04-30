@@ -4,7 +4,8 @@
 ;;; Code:
 
 (require 'subr-x)
-;; (require 's)
+(require-package 's)
+(require 's)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; templater
@@ -122,11 +123,6 @@
   (delete-region (region-beginning) (region-end)) ;; delete the rest
   )
 
-
-(defun my-put-file-name-on-clipboard ()
-  "Put the current file name on the clipboard"
-  (interactive)
-  )
 
 (defun remfils/kill-abs-file-path()
   (interactive)

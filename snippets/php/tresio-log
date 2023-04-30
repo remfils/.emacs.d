@@ -1,0 +1,5 @@
+# -*- mode: php -*-
+# name: tresio-log
+# key: #log
+# --
+error_log('[$1] > ' . basename(__FILE__) . " >  $0");
