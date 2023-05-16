@@ -155,6 +155,15 @@
     (when filename
       (async-shell-command (concat "code " filename ":" (number-to-string linenumber) " --goto")))))
 
+(defvar remfils/store-location "~/"
+  "Location of store where copies of files are stored")
+(put 'remfils/store-location 'safe-local-variable #'stringp)
+
+(defun remfils/copy-file-to-store ()
+  (interactive)
+  (let* ((from-file-name (buffer-file-name (window-buffer (minibuffer-selected-window))))
+        (to-file-name (concat (file-name-as-directory remfils/store-location) (file-name-nondirectory from-file-name))))
+    (copy-file from-file-name to-file-name "overwrite")))
 
 ;; create org log file
 

@@ -137,6 +137,8 @@ This is useful when followed by an immediate kill."
 
 (global-set-key (kbd "C-j") 'newline)
 
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+
 ;; smarter ctrl-a
 
 (defun smarter-move-beginning-of-line (arg)
