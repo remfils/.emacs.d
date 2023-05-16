@@ -167,10 +167,6 @@
 
 ;; create org log file
 
-;; TODO: insert this part
-;;;; #+TITLE: Военкомат, Лагунов и ленивая работа
-;;;; #+DATE: 2022-04-26
-
 (defun remfils/create-journal-file ()
   (interactive)
   (let ((file-name (concat (format-time-string "%Y-%m-%d") "__.org")))
