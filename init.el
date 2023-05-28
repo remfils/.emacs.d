@@ -1,58 +1,52 @@
-;; to read: http://tuhdo.github.io/
+(add-to-list 'load-path (expand-file-name "setup" user-emacs-directory))
 
-;; source: https://github.com/purcell/emacs.d
+(require 'setup-use-package)
 
-;; TODO (later):
-;;  - spell mode
-;;  - web-mode (mmm mode?), emmet, css
-;;  - helm find files is slow at first
-;;  - openwith
+;; UTF-8 as default encoding
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
+(set-terminal-coding-system 'utf-8-unix)
 
+(require 'setup-gui)
+(require 'setup-navigation)
 
-;; WARN: this is security risck
-;; (setq package-check-signature nil) 
+(require 'setup-company)
+(require 'setup-lisp)
+(require 'setup-js)
 
-(add-to-list 'load-path (expand-file-name "conf" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
-
-;; (require 'init-benchmarking)
-
-(require 'conf-init)
-
-(require 'conf-gui)
-(require 'conf-edit)
-(require 'conf-org)
+(global-set-key (kbd "C-j") 'newline)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 
 
-(require 'init-avy)
-(require 'init-cpp)
-(require 'init-helm)
-(require 'init-js)
-(require 'init-ledger)
-(require 'init-php)
-(require 'init-python)
-(require 'init-remfils)
+(require 'setup-modeline)
 
 
-;; unset after all modes are init
-(require 'conf-unset-keybingings)
+;; 
+;; (require 'setup-projects)
+
+;; (require 'setup-lsp)
+;; (require 'setup-php)
+;; (require 'setup-js)
+
+;; (require 'setup-edit)
+
+;; (setq lsp-intelephense-files-exclude '("**/.git/**" "**/.svn/**" "**/.hg/**" "**/CVS/**" "**/.DS_Store/**" "**/node_modules/**" "**/bower_components/**" "**/vendor/**/{Test,test,Tests,tests}/**"))
 
 
-;; TODO: why was the end?
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
-(require 'conf-capture-sync)
-(require 'conf-org-images)
+
+;; (require 'conf-unset-keybingings)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Allow access from emacsclient
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun remfils/after-init-hook ()
-  (require 'server)
-  (unless (server-running-p)
-    (server-start)))
-(add-hook 'after-init-hook 'remfils/after-init-hook)
-
-(provide 'init)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(embark-consult embark consult orderless vertico use-package zenburn-theme yasnippet web-mode vue-mode unfill switch-window s rainbow-delimiters php-mode org-cliplink multiple-cursors magit ledger-mode json-mode js2-mode hl-todo helm flycheck flatui-theme expand-region emmet-mode company avy)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

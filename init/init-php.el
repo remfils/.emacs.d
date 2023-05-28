@@ -6,9 +6,15 @@
 ;; TODO: some basic flycheck config
 ;; TODO: configure lsp server support
 
+;; (require-package 'tree-sitter)
+;; (require-package 'tree-sitter-langs)
+;; (require-package 'tree-sitter-indent)
+
 (require-package 'php-mode)
 (require-package 'web-mode)
 (require-package 'emmet-mode)
+
+;(global-tree-sitter-mode)
 
 (require-package 'flycheck)
 
@@ -49,6 +55,7 @@
 (defun remfils/php-mode-hook ()
   (local-set-key [f5] #'web-mode)
   (local-set-key [f6] 'remfils-php/toggle-lsp-mode)
+  ;;(tree-sitter-hl-mode)
   (flycheck-mode)
   (setq php-mode-template-compatibility nil))
 (add-hook 'php-mode-hook 'remfils/php-mode-hook)
