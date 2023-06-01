@@ -46,20 +46,20 @@
 (require 'expand-region)
 (require 'multiple-cursors)
 
-(require 'tree-sitter)
-(require 'tree-sitter-hl)
-(require 'tree-sitter-langs)
-(require 'tree-sitter-query)
-(require 'tree-sitter-indent)
+;; (require 'tree-sitter)
+;; (require 'tree-sitter-hl)
+;; (require 'tree-sitter-langs)
+;; (require 'tree-sitter-query)
+;; (require 'tree-sitter-indent)
 
-(eval-after-load
-    'tree-sitter
-  (progn
-    (setq-default
-     tree-sitter-major-mode-language-alist
-     '((php-mode . php)
-       (js2-mode . javascript)))
-    (remfils/prog-end)))
+;; (eval-after-load
+;;     'tree-sitter
+;;   (progn
+;;     (setq-default
+;;      tree-sitter-major-mode-language-alist
+;;      '((php-mode . php)
+;;        (js2-mode . javascript)))
+;;     (remfils/prog-end)))
 
 
 

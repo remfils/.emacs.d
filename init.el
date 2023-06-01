@@ -15,6 +15,7 @@
 (require 'setup-lisp)
 (require 'setup-js)
 (require 'setup-php)
+(require 'setup-ledger)
 
 
 (require 'setup-theme)

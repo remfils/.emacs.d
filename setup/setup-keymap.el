@@ -148,4 +148,16 @@ point reaches the beginning or end of the buffer, stop there."
 (print (type-of #'split-window-below))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ledger
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(eval-after-load
+    'ledger-mode
+  (progn
+    ;; (define-key ledger-mode-map (kbd "RET") 'newline)
+    ;; (define-key ledger-mode-map (kbd "C-o") 'open-line)
+    (remfils/prog-end)
+    ))
+
 (provide 'setup-keymap)

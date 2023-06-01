@@ -22,9 +22,9 @@
 
    ;;;; general dev
    company
-   tree-sitter
-   tree-sitter-langs
-   tree-sitter-indent
+   ;; tree-sitter
+   ;; tree-sitter-langs
+   ;; tree-sitter-indent
    lsp-mode ;; TODO: configure flycheck for each language
    flycheck ;; TODO: configure flycheck for each language
    rainbow-delimiters
@@ -49,7 +49,7 @@
    zenburn-theme
 
    ;;;; misc
-   ;; ledger-mode
+   ledger-mode
 
    ;; 
    ;; helm ; DEBUG
