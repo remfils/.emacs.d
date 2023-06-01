@@ -1,24 +1,26 @@
 (add-to-list 'load-path (expand-file-name "setup" user-emacs-directory))
 
-(require 'setup-use-package)
 
 ;; UTF-8 as default encoding
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8-unix)
 (set-terminal-coding-system 'utf-8-unix)
 
-(require 'setup-gui)
-(require 'setup-navigation)
+(defun remfils/prog-end())
 
-(require 'setup-company)
+(require 'setup-packages)
+(require 'setup-navigation)
+(require 'setup-general-development)
+
 (require 'setup-lisp)
 (require 'setup-js)
-
-(global-set-key (kbd "C-j") 'newline)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
+(require 'setup-php)
 
 
+(require 'setup-theme)
+(require 'setup-gui)
 (require 'setup-modeline)
+(require 'setup-keymap)
 
 
 ;; 

@@ -1,0 +1,7 @@
+* Dependencies
+
+*ripgrep*
+
+#+begin_src bash
+sudo snd install ripgrep
+#+end_src

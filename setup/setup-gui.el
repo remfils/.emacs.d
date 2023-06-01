@@ -1,14 +1,16 @@
-(use-package
- zenburn-theme
- :ensure t
- :init
- (load-theme 'zenburn t)
- (set-face-attribute 'lazy-highlight nil :background "#2B2B2B" :underline t))
-
-
-(setq inhibit-startup-screen t)
-(setq use-file-dialog nil)
-(setq use-dialog-box nil)
+(setq-default
+ blink-cursor-interval 0.4
+ column-number-mode t
+ tooltip-delay 1.5
+ truncate-lines nil
+ truncate-partial-width-windows nil
+ inhibit-startup-screen t
+ use-file-dialog nil
+ use-dialog-box nil
+ view-read-only t
+ show-trailing-whitespace nil
+ visible-bell 1
+ )
 
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -65,22 +67,23 @@
 ;; When splitting window, show (other-buffer) in the new window
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun split-window-func-with-other-buffer (split-function)
-  (lambda (&optional arg)
-    "Split this window and switch to the new window unless ARG is provided."
-    (interactive "P")
-    (funcall split-function)
+
+(defun remfils/split-window-vertically(arg)
+  (interactive "P")
+    (split-window-vertically)
     (let ((target-window (next-window)))
       (set-window-buffer target-window (other-buffer))
       (unless arg
-        (select-window target-window)))))
-
-(global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
+        (select-window target-window))))
 
 
-(setq view-read-only t)
-
+(defun remfils/split-window-horizontally(arg)
+  (interactive "P")
+    (split-window-horizontally)
+    (let ((target-window (next-window)))
+      (set-window-buffer target-window (other-buffer))
+      (unless arg
+        (select-window target-window))))
 
 (defun pulse-line (&rest _)
       "Pulse the current line."
