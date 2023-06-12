@@ -38,4 +38,9 @@
      (remfils/prog-end)))
 
 
+(add-hook
+ 'mmm-mode-hook
+ (lambda ()
+   (set-face-attribute 'mmm-default-submode-face nil :background nil)))
+
 (provide 'setup-theme)

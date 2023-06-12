@@ -1,5 +1,6 @@
 (require 'js2-mode)
 (require 'vue-mode)
+(require 'vue-html-mode)
 (require 'json-mode)
 
 (defun remfils/js2-mode-hook()

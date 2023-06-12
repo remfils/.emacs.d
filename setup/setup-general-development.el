@@ -65,6 +65,10 @@
 
 (require 'lsp)
 
+(setq-default
+ remfils-start-lsp? nil)
+(put 'remfils-start-lsp? 'safe-local-variable #'booleanp)
+
 (delete-selection-mode 1) ;; overwrite on paste
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 

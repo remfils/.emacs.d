@@ -125,6 +125,7 @@ point reaches the beginning or end of the buffer, stop there."
     'web-mode
   (progn
     (define-key web-mode-map (kbd "<f5>") 'php-mode)
+    (define-key web-mode-map (kbd "M-o") 'ace-window)
     ; (global-set-key (kbd "C-c C-j") nil)
     (remfils/prog-end)
     ))
@@ -159,5 +160,27 @@ point reaches the beginning or end of the buffer, stop there."
     ;; (define-key ledger-mode-map (kbd "C-o") 'open-line)
     (remfils/prog-end)
     ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-key global-map (kbd "C-c l") 'org-store-link)
+(define-key global-map (kbd "C-c a") 'org-agenda)
+
+(define-key global-map (kbd "C-c k c") 'epa-encrypt-region)
+(define-key global-map (kbd "C-c k d") 'epa-decrypt-region)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; js
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(eval-after-load
+    'vue-mode
+  (progn
+    (define-key vue-html-mode-map (kbd "M-o") 'ace-window)
+    (remfils/prog-end)))
+
 
 (provide 'setup-keymap)

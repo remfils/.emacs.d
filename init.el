@@ -10,13 +10,16 @@
 
 (require 'setup-packages)
 (require 'setup-navigation)
-(require 'setup-general-development)
 
+(require 'setup-org)
+
+(require 'setup-general-development)
 (require 'setup-lisp)
 (require 'setup-js)
 (require 'setup-php)
-(require 'setup-ledger)
+(require 'setup-python)
 
+(require 'setup-ledger)
 
 (require 'setup-theme)
 (require 'setup-gui)
