@@ -47,6 +47,7 @@
 
    ;; theme
    zenburn-theme
+   leuven-theme
 
    ;;;; misc
    ledger-mode

@@ -28,78 +28,86 @@
 
 (setq org-confirm-babel-evaluate nil)
 
-
 ;; prose mode
-(let
-    ((current-theme (car custom-enabled-themes)))
-  (define-minor-mode prose-mode
-    "Set up a buffer for prose editing.
+
+(setq-default
+ remfils/current-theme-value nil)
+
+(eval-after-load
+    'setup-theme
+  '(progn
+     (setq remfils/current-theme-value (car custom-enabled-themes))
+     (remfils/prog-end)))
+
+(define-minor-mode prose-mode
+  "Set up a buffer for prose editing.
 This enables or modifies a number of settings so that the
 experience of editing prose is a little more like that of a
 typical word processor."
-    nil " Prose" nil
-    (if prose-mode
-        (progn
-          (when (fboundp 'writeroom-mode)
-            (writeroom-mode 1))
-          (setq truncate-lines nil)
-          (setq word-wrap t)
-          (setq cursor-type 'bar)
-          (when (eq major-mode 'org)
-            (kill-local-variable 'buffer-face-mode-face))
-          (buffer-face-mode 1)
-          ;;(delete-selection-mode 1)
-          (setq-local blink-cursor-interval 0.6)
-          (setq-local show-trailing-whitespace nil)
-          (setq-local line-spacing 0.2)
-          (setq-local electric-pair-mode nil)
-          (set-fringe-style 2)
-          (set-frame-parameter (window-frame) 'background-mode 'dark)
-          ;; (ignore-errors (flyspell-mode 1))
-          (visual-line-mode 1)
+  nil " Prose" nil
+  (if prose-mode
+      (progn
+        
+        (when (fboundp 'writeroom-mode)
+          (writeroom-mode 1))
+        (setq truncate-lines nil)
+        (setq word-wrap t)
+        (setq cursor-type 'bar)
+        (when (eq major-mode 'org)
+          (kill-local-variable 'buffer-face-mode-face))
+        (buffer-face-mode 1)
+        ;;(delete-selection-mode 1)
+        (setq-local blink-cursor-interval 0.6)
+        (setq-local show-trailing-whitespace nil)
+        (setq-local line-spacing 0.2)
+        (setq-local electric-pair-mode nil)
+        (set-fringe-style 2)
+        (set-frame-parameter (window-frame) 'background-mode 'dark)
+        ;; (ignore-errors (flyspell-mode 1))
+        (visual-line-mode 1)
 
-          ;; go fullscreen
+        ;; go fullscreen
 
-          ;; (toggle-frame-fullscreen)
+        ;; (toggle-frame-fullscreen)
 
-          ;; change theme
+        ;; change theme
 
-          (disable-theme current-theme)
-          (load-theme 'flatui t)
-          
-          ;; setup window margins
+        (disable-theme remfils/current-theme-value)
+        (load-theme 'leuven t)
+        
+        ;; setup window margins
 
-          ;; (setq left-margin-width (get-golden-ratio-margin))
-          ;; (setq right-margin-width (get-golden-ratio-margin))
-          ;; (set-window-buffer nil (current-buffer))
-          
-          )
-      (kill-local-variable 'truncate-lines)
-      (kill-local-variable 'word-wrap)
-      (kill-local-variable 'cursor-type)
-      (kill-local-variable 'blink-cursor-interval)
-      (kill-local-variable 'show-trailing-whitespace)
-      (kill-local-variable 'line-spacing)
-      (kill-local-variable 'electric-pair-mode)
-      (buffer-face-mode -1)
-      ;; (delete-selection-mode -1)
-      ;; (flyspell-mode -1)
-      (visual-line-mode -1)
+        (setq left-margin-width 50)
+        (setq right-margin-width 50)
+        (set-window-buffer nil (window-buffer))
+        
+        )
+    (kill-local-variable 'truncate-lines)
+    (kill-local-variable 'word-wrap)
+    (kill-local-variable 'cursor-type)
+    (kill-local-variable 'blink-cursor-interval)
+    (kill-local-variable 'show-trailing-whitespace)
+    (kill-local-variable 'line-spacing)
+    (kill-local-variable 'electric-pair-mode)
+    (buffer-face-mode -1)
+    ;; (delete-selection-mode -1)
+    ;; (flyspell-mode -1)
+    (visual-line-mode -1)
 
-      (set-fringe-style nil)
+    (set-fringe-style nil)
 
-      ;; revert theme
+    ;; revert theme
 
-      (disable-theme 'flatui)
-      (load-theme current-theme t)
+    (disable-theme 'flatui)
+    (load-theme remfils/current-theme-value t)
 
-      ;; center window
-      
-      (setq left-margin-width nil)
-      (setq right-margin-width nil)
-      (set-window-buffer nil (current-buffer))
+    ;; center window
+    
+    (setq left-margin-width nil)
+    (setq right-margin-width nil)
+    (set-window-buffer nil (current-buffer))
 
-      ;; (toggle-frame-fullscreen)
-      )))
+    ;; (toggle-frame-fullscreen)
+    ))
 
 (provide 'setup-org)
