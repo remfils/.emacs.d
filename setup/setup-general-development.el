@@ -38,8 +38,6 @@
 
 (electric-pair-mode 1)
 
-(cua-selection-mode 1)
-
 ;; packages
 
 (require 'unfill)
