@@ -1,7 +1,6 @@
 (require 'org)
-(require 'epa-file)
 
-(epa-file-enable)
+(require 'epa-file)
 
 (defun remfils/after-init-org-hook()
   (setq
@@ -44,7 +43,9 @@
 This enables or modifies a number of settings so that the
 experience of editing prose is a little more like that of a
 typical word processor."
-  nil " Prose" nil
+  :global nil
+  :keymap nil
+  :lighter " Prose"
   (if prose-mode
       (progn
         

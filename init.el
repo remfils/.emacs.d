@@ -8,6 +8,14 @@
 
 (defun remfils/prog-end())
 
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; Lower threshold back to 8 MiB (default is 800kB)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (expt 2 25))
+            (insert (emacs-init-time))))
+
 (require 'setup-packages)
 (require 'setup-navigation)
 
@@ -26,22 +34,7 @@
 (require 'setup-modeline)
 (require 'setup-keymap)
 
-
-;; 
-;; (require 'setup-projects)
-
-;; (require 'setup-lsp)
-;; (require 'setup-php)
-;; (require 'setup-js)
-
-;; (require 'setup-edit)
-
 ;; (setq lsp-intelephense-files-exclude '("**/.git/**" "**/.svn/**" "**/.hg/**" "**/CVS/**" "**/.DS_Store/**" "**/node_modules/**" "**/bower_components/**" "**/vendor/**/{Test,test,Tests,tests}/**"))
-
-
-
-;; (require 'conf-unset-keybingings)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
