@@ -8,8 +8,8 @@
  use-file-dialog nil
  use-dialog-box nil
  view-read-only t
- show-trailing-whitespace nil
  visible-bell 1
+ show-trailing-whitespace t
  )
 
 (when (fboundp 'tool-bar-mode)
