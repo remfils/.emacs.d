@@ -10,6 +10,7 @@
  read-file-name-completion-ignore-case t
  read-buffer-completion-ignore-case t
  completion-ignore-case t
+ enable-recursive-minibuffers t
  )
 (vertico-mode)
 
@@ -23,11 +24,13 @@
 (marginalia-mode)
 
 (require 'orderless)
-(setq
- completion-styles '(orderless basic)
- completion-category-defaults nil
- completion-category-overrides '((file (styles partial-completion)))
- )
+(with-eval-after-load 'orderless
+  (setq
+   completion-styles '(orderless basic)
+   completion-category-defaults nil
+   completion-category-overrides '((file (styles orderless partial-completion)))
+   ))
+
 
 (require 'consult)
 

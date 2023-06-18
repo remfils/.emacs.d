@@ -31,12 +31,8 @@
 ;;  (lambda ()
 ;;    (modify-face 'tree-sitter-hl-face:property nil nil nil nil nil nil nil)))
 
-(eval-after-load
-    'ace-window
-  '(progn
-     (set-face-attribute 'aw-leading-char-face nil :height 200)
-     (remfils/prog-end)))
-
+(with-eval-after-load 'ace-window
+  (set-face-attribute 'aw-leading-char-face nil :height 200))
 
 (add-hook
  'mmm-mode-hook

@@ -1,42 +1,33 @@
-(require 'org)
+(with-eval-after-load 'org
+  (require 'epa-file)
 
-(require 'epa-file)
-
-(defun remfils/after-init-org-hook()
-  (setq
-    org-modules
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (append org-babel-load-languages
+           '((python . t)))))
+(setq-default
+ org-confirm-babel-evaluate nil
+ org-modules
     '(
 ; org-w3m ; 
 ; org-bbdb ; BBDB is a rolodex-like database program for GNU Emacs
 ;org-bibtex ; Org links to BibTeX entries
       org-datetree ; create date entries in a tree
-      org-docview
+      ;;org-docview
 ;org-gnus ; support for links to gnus
 ; org-info ; Support for links to Info nodes from within Org-Mode
-; org-irc ; 
-; org-mhe ; 
+; org-irc ;
+; org-mhe ;
 ; org-rmail
-      )))
-
-(add-hook 'after-init-hook 'remfils/after-init-org-hook)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- (append org-babel-load-languages
-         '((python . t))))
-
-(setq org-confirm-babel-evaluate nil)
+      ))
 
 ;; prose mode
 
 (setq-default
  remfils/current-theme-value nil)
 
-(eval-after-load
-    'setup-theme
-  '(progn
-     (setq remfils/current-theme-value (car custom-enabled-themes))
-     (remfils/prog-end)))
+(with-eval-after-load 'setup-theme
+  (setq remfils/current-theme-value (car custom-enabled-themes)))
 
 (define-minor-mode prose-mode
   "Set up a buffer for prose editing.
@@ -48,7 +39,7 @@ typical word processor."
   :lighter " Prose"
   (if prose-mode
       (progn
-        
+
         (when (fboundp 'writeroom-mode)
           (writeroom-mode 1))
         (setq truncate-lines nil)
@@ -75,13 +66,13 @@ typical word processor."
 
         (disable-theme remfils/current-theme-value)
         (load-theme 'leuven t)
-        
+
         ;; setup window margins
 
         (setq left-margin-width 50)
         (setq right-margin-width 50)
         (set-window-buffer nil (window-buffer))
-        
+
         )
     (kill-local-variable 'truncate-lines)
     (kill-local-variable 'word-wrap)
@@ -103,7 +94,7 @@ typical word processor."
     (load-theme remfils/current-theme-value t)
 
     ;; center window
-    
+
     (setq left-margin-width nil)
     (setq right-margin-width nil)
     (set-window-buffer nil (current-buffer))
