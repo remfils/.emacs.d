@@ -168,6 +168,9 @@ point reaches the beginning or end of the buffer, stop there."
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
+(define-key global-map (kbd "C-c c") 'org-capture)
+
+
 (define-key global-map (kbd "C-c k c") 'epa-encrypt-region)
 (define-key global-map (kbd "C-c k d") 'epa-decrypt-region)
 
