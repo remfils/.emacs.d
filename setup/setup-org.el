@@ -23,6 +23,19 @@
 
 ;; prose mode
 
+(defun remfils/white-theme()
+  (interactive)
+  (setq
+   truncate-lines nil
+   word-wrap t
+   cursor-type 'bar)
+  (setq-local
+   blink-cursor-interval 0.6
+   show-trailing-whitespace nil
+   line-spacing 0.2
+   electric-pair-mode nil)
+  )
+
 (setq-default
  remfils/current-theme-value nil)
 
@@ -39,38 +52,30 @@ typical word processor."
   :lighter " Prose"
   (if prose-mode
       (progn
-
         (when (fboundp 'writeroom-mode)
           (writeroom-mode 1))
-        (setq truncate-lines nil)
-        (setq word-wrap t)
-        (setq cursor-type 'bar)
+
+        (remfils/white-theme)
+        
         (when (eq major-mode 'org)
           (kill-local-variable 'buffer-face-mode-face))
         (buffer-face-mode 1)
         ;;(delete-selection-mode 1)
-        (setq-local blink-cursor-interval 0.6)
-        (setq-local show-trailing-whitespace nil)
-        (setq-local line-spacing 0.2)
-        (setq-local electric-pair-mode nil)
+        
         (set-fringe-style 2)
         (set-frame-parameter (window-frame) 'background-mode 'dark)
         ;; (ignore-errors (flyspell-mode 1))
         (visual-line-mode 1)
 
-        ;; go fullscreen
-
-        ;; (toggle-frame-fullscreen)
-
         ;; change theme
-
         (disable-theme remfils/current-theme-value)
         (load-theme 'leuven t)
 
         ;; setup window margins
 
-        (setq left-margin-width 50)
-        (setq right-margin-width 50)
+        (setq
+         left-margin-width 50
+         right-margin-width 50)
         (set-window-buffer nil (window-buffer))
 
         )

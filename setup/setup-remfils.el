@@ -167,15 +167,17 @@
        )
     (setq org-capture-templates
           `(
-            ("t" "Todo" entry (file+headline ,@remfils/task-file-location "Tasks")
+            ("t" "Todo" entry (file+headline ,remfils/task-file-location "Tasks")
              "** TODO %?\n%T")
-            ("e" "Event log" entry (file+headline ,@remfils/event-log-file-location "Event logs")
+            ("e" "Event log" entry (file+headline ,remfils/event-log-file-location "Event logs")
              "* %T%?       :elog:\n:PROPERTY:\n:CATEGORY: event-log\n:END:\n")
-            ("j" "Journal" entry (file+headline ,@remfils/journal-file-location "Journal")
+            ("j" "Journal" entry (file+headline ,remfils/journal-file-location "Journal")
              "** %?\n:PROPERTY:\n:CATEGORY: journal\n:END:\n# дата: %T\n")
-            ("c" "Code" entry (file+headline ,@remfils/code-file-location "Code")
+            ("c" "Code" entry (file+headline ,remfils/code-file-location "Code")
              "** %?       :LANG:\n:PROPERTY:\n:CATEGORY: code\n:END:\n# дата: %T\n"))
           ))
   )
+
+(remfils/set-agenda-and-refile-after-custom-load)
 
 (provide 'setup-remfils)
