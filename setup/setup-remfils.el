@@ -152,32 +152,54 @@
   :group 'remfils
   :type '(string))
 
+(defun remfils/capture/get-file-location__task()
+  (if (boundp 'remfils/capture/project-file-location__task)
+      remfils/capture/project-file-location__task
+    remfils/sync/refile-org-path))
+(put 'remfils/capture/project-file-location__task 'safe-local-variable #'stringp)
+
+(defun remfils/capture/get-file-location__event()
+  (if (boundp 'remfils/capture/project-file-location__event)
+      remfils/capture/project-file-location__event
+    remfils/sync/refile-org-path))
+(put 'remfils/capture/project-file-location__event 'safe-local-variable #'stringp)
+
+(defun remfils/capture/get-file-location__journal()
+  (if (boundp 'remfils/capture/project-file-location__journal)
+      remfils/capture/project-file-location__journal
+    remfils/sync/refile-org-path))
+(put 'remfils/capture/project-file-location__journal 'safe-local-variable #'stringp)
+
+(defun remfils/capture/get-file-location__code()
+  (if (boundp 'remfils/capture/project-file-location__code)
+      remfils/capture/project-file-location__code
+    remfils/sync/refile-org-path))
+(put 'remfils/capture/project-file-location__code 'safe-local-variable #'stringp)
+
+
+
 (defun remfils/set-agenda-and-refile-after-custom-load ()
   (setq org-agenda-files
           (list
            remfils/sync/refile-org-path))
 
-  (print (concat "loaded custom.el file, var val:" remfils/sync/refile-org-path))
-  (let
-      (
-       (remfils/task-file-location remfils/sync/refile-org-path)
-       (remfils/journal-file-location remfils/sync/refile-org-path)
-       (remfils/event-log-file-location remfils/sync/refile-org-path)
-       (remfils/code-file-location remfils/sync/refile-org-path)
-       )
-    (setq org-capture-templates
-          `(
-            ("t" "Todo" entry (file+headline ,remfils/task-file-location "Tasks")
-             "** TODO %?\n%T")
-            ("e" "Event log" entry (file+headline ,remfils/event-log-file-location "Event logs")
-             "* %T%?       :elog:\n:PROPERTY:\n:CATEGORY: event-log\n:END:\n")
-            ("j" "Journal" entry (file+headline ,remfils/journal-file-location "Journal")
-             "** %?\n:PROPERTY:\n:CATEGORY: journal\n:END:\n# дата: %T\n")
-            ("c" "Code" entry (file+headline ,remfils/code-file-location "Code")
-             "** %?       :LANG:\n:PROPERTY:\n:CATEGORY: code\n:END:\n# дата: %T\n"))
-          ))
+  (setq org-capture-templates
+        '(
+          ("t" "Todo" entry (file+headline remfils/capture/get-file-location__task "Tasks")
+           "** TODO %?\n%T")
+          ("j" "Journal" entry (file+headline remfils/capture/get-file-location__journal "Journal")
+           "** %?\n:PROPERTY:\n:CATEGORY: journal\n:END:\n# дата: %T\n")
+          ("e" "Event log" entry (file+headline remfils/capture/get-file-location__event "Event logs")
+           "* %T%?       :elog:\n:PROPERTY:\n:CATEGORY: event-log\n:END:\n")
+          ("c" "Code" entry (file+headline remfils/capture/get-file-location__code "Code")
+           "** %?       :LANG:\n:PROPERTY:\n:CATEGORY: code\n:END:\n# дата: %T\n"))
+        )
   )
 
-(remfils/set-agenda-and-refile-after-custom-load)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; doc.org features
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 
 (provide 'setup-remfils)
