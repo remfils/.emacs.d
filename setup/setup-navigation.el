@@ -1,3 +1,4 @@
+;; TODO: is this even needed?
 (defvar remfils/current-project-path "~/"
   "Location of the currently editing project")
 (put 'remfils/current-project-path 'safe-local-variable #'stringp)
