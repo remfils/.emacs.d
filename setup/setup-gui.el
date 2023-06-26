@@ -9,7 +9,7 @@
  use-dialog-box nil
  view-read-only t
  visible-bell 1
- show-trailing-whitespace t
+ show-trailing-whitespace nil
  )
 
 (when (fboundp 'tool-bar-mode)

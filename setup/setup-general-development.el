@@ -202,6 +202,12 @@
 
 (put 'js2-basic-offset 'safe-local-variable #'integerp)
 
+(defun remfils/js2-mode-hook()
+  (company-mode))
+
+(with-eval-after-load 'js2-mode
+  (add-hook 'js2-mode-hook 'remfils/js2-mode-hook))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general ide
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
