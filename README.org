@@ -3,5 +3,26 @@
 *ripgrep*
 
 #+begin_src bash
-sudo snd install ripgrep
+sudo dnf install ripgrep
+#+end_src
+
+* Examples for @file:.dir-locals.el
+
+*TBD*
+
+#+begin_src elisp
+    (
+     (prog-mode . (
+                   (remfils/capture/doc.org . "d:/Projects/local__obl-cal/doc.org")
+
+  ;;;; OR
+
+                   ;; (remfils/capture/project-file-location__task . "d:/Projects/local__obl-cal/doc.org")
+                   ;; (remfils/capture/project-file-location__event . "d:/Projects/local__obl-cal/doc.org")
+                   ;; (remfils/capture/project-file-location__journal . "d:/Projects/local__obl-cal/doc.org")
+                   ;; (remfils/capture/project-file-location__code . "d:/Projects/local__obl-cal/doc.org")
+                   )
+                )
+     )
+
 #+end_src

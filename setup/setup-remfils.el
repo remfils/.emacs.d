@@ -152,28 +152,38 @@
   :group 'remfils
   :type '(string))
 
+(defun remfils/capture/doc.org-path()
+  (if (boundp 'remfils/capture/custom-doc.org)
+        remfils/capture/custom-doc.org
+      remfils/sync/refile-org-path))
+
+(defun remfils/capture/doc.org-other-window()
+  (interactive)
+  (find-file-other-window (remfils/capture/doc.org-path)))
+(put 'remfils/capture/custom-doc.org 'safe-local-variable #'stringp)
+
 (defun remfils/capture/get-file-location__task()
   (if (boundp 'remfils/capture/project-file-location__task)
       remfils/capture/project-file-location__task
-    remfils/sync/refile-org-path))
+    (remfils/capture/doc.org-path)))
 (put 'remfils/capture/project-file-location__task 'safe-local-variable #'stringp)
 
 (defun remfils/capture/get-file-location__event()
   (if (boundp 'remfils/capture/project-file-location__event)
       remfils/capture/project-file-location__event
-    remfils/sync/refile-org-path))
+    (remfils/capture/doc.org-path)))
 (put 'remfils/capture/project-file-location__event 'safe-local-variable #'stringp)
 
 (defun remfils/capture/get-file-location__journal()
   (if (boundp 'remfils/capture/project-file-location__journal)
       remfils/capture/project-file-location__journal
-    remfils/sync/refile-org-path))
+    (remfils/capture/doc.org-path)))
 (put 'remfils/capture/project-file-location__journal 'safe-local-variable #'stringp)
 
 (defun remfils/capture/get-file-location__code()
   (if (boundp 'remfils/capture/project-file-location__code)
       remfils/capture/project-file-location__code
-    remfils/sync/refile-org-path))
+    (remfils/capture/doc.org-path)))
 (put 'remfils/capture/project-file-location__code 'safe-local-variable #'stringp)
 
 

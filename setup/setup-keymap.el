@@ -113,10 +113,11 @@ point reaches the beginning or end of the buffer, stop there."
 ;; org
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-key global-map (kbd "C-c l") 'org-store-link)
-(define-key global-map (kbd "C-c a") 'org-agenda)
 
-(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-c o a") 'org-agenda)
+(define-key global-map (kbd "C-c o l") 'org-store-link)
+(define-key global-map (kbd "C-c o c") 'org-capture)
+(define-key global-map (kbd "C-c o o") 'remfils/capture/doc.org-other-window)
 
 
 (define-key global-map (kbd "C-c k c") 'epa-encrypt-region)
