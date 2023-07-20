@@ -8,8 +8,8 @@
 (global-set-key (kbd "C-j") 'newline)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
-(global-set-key (kbd "C-x C-n") 'next-buffer)
-(global-set-key (kbd "C-x C-p") 'previous-buffer)
+(global-set-key (kbd "C-x C-n") 'switch-to-next-buffer)
+(global-set-key (kbd "C-x C-p") 'switch-to-prev-buffer)
 
 (with-eval-after-load 'unfill
   (global-set-key (kbd "M-Q") 'unfill-paragraph))
