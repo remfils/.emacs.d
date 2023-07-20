@@ -16,3 +16,4 @@ custom.el
 /eln-cache/
 /lsp-cache/
 places
+/scripts/__pycache__/

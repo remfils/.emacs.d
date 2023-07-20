@@ -16,6 +16,7 @@
 (require 'setup-org)
 (require 'setup-general-development)
 (require 'setup-remfils)
+(require 'setup-ledger)
 
 
 (require 'setup-gui)
