@@ -13,7 +13,7 @@ sudo dnf install ripgrep
 #+begin_src elisp
     (
      (prog-mode . (
-                   (remfils/capture/doc.org . "d:/Projects/local__obl-cal/doc.org")
+                   (remfils/capture/custom-doc.org . "d:/Projects/local__obl-cal/doc.org")
 
   ;;;; OR
 
