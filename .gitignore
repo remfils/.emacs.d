@@ -17,3 +17,4 @@ custom.el
 /lsp-cache/
 places
 /scripts/__pycache__/
+/org-persist/
