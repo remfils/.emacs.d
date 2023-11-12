@@ -223,4 +223,19 @@
     (goto-char current-buffer-position)))
 
 
+;; TODO: check if file exists
+(defun remfils/c++/open-header-or-source-file()
+  (interactive)
+  (let* (
+         (current-file (buffer-file-name))
+         (current-extension (file-name-extension current-file)))
+    (cond
+     ((string= current-extension "h")
+      (find-file-other-window (concat (substring current-file 0 -1) "cpp")))
+     ((string= current-extension "cpp")
+      (find-file-other-window (concat (substring current-file 0 -3) "h")))
+     (t (print (concat "NO LUCK / " current-extension)))
+     )))
+
+
 (provide 'setup-remfils)

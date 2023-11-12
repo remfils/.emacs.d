@@ -14,8 +14,8 @@
 (require 'setup-navigation)
 
 (require 'setup-org)
-(require 'setup-general-development)
 (require 'setup-remfils)
+(require 'setup-general-development)
 (require 'setup-ledger)
 
 

@@ -91,6 +91,15 @@
                     )
  )
 
+;; c++ braces
+;(add-to-list 'c-offsets-alist '(substatement-open . 0))
+
+(defun remfils/c-mode-hook()
+  (c-set-offset 'substatement-open 0)
+  ())
+(add-hook 'c-mode-hook 'remfils/c-mode-hook)
+(add-hook 'c++-mode-hook 'remfils/c-mode-hook)
+
 (setq
  hl-todo-keyword-faces
  '(

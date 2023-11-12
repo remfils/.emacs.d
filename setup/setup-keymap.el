@@ -100,6 +100,10 @@ point reaches the beginning or end of the buffer, stop there."
   (global-set-key (kbd "C-x 2") 'remfils/split-window-vertically)
   (global-set-key (kbd "C-x 3") 'remfils/split-window-horizontally))
 
+(with-eval-after-load 'cc-mode
+  (define-key c-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file)
+  (define-key c++-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file))
+
 (print (type-of #'split-window-below))
 
 

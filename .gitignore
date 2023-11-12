@@ -18,3 +18,4 @@ custom.el
 places
 /scripts/__pycache__/
 /org-persist/
+/url/
