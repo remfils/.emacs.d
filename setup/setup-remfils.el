@@ -37,8 +37,8 @@
 ;; image mover
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun remfis/org-collect-images (dir-name)
-  (interactive "sdir name:")
+(defun remfils/org-collect-images (dir-name)
+  (interactive (list (read-string "image directory: " "imgs")))
   (let
       ((new-img-dir (concat default-directory dir-name "/"))
        (images (remfils/grab-all-images-from-org-file)))
@@ -46,17 +46,20 @@
       (make-directory new-img-dir))
     ;; copy found images
     (mapcar (lambda (old-img-url)
-              (let* ((new-file-name (file-name-nondirectory old-img-url))
-                     (new-img-url (concat new-img-dir new-file-name)))
-                (copy-file old-img-url new-img-url)
+              (when (not (string-prefix-p "./" old-img-url))
+                (let* ((new-file-name (file-name-nondirectory old-img-url))
+                       (new-img-url (concat new-img-dir new-file-name)))
+                  (print (concat "found image: [" old-img-url "] moving to [" new-img-url "]"))
+                  (copy-file old-img-url new-img-url t)
 
-                (let (
-                      (old-url old-img-url)
-                      (new-url (replace-regexp-in-string default-directory "./" new-img-url))
-                      )
-                  (goto-char (point-min))
-                  (while (search-forward old-url nil t)
-                    (replace-match new-url)))))
+                  (let (
+                        (old-url old-img-url)
+                        (new-url (replace-regexp-in-string default-directory "./" new-img-url))
+                        )
+                    (goto-char (point-min))
+                    (while (search-forward old-url nil t)
+                      (replace-match new-url))))
+                ))
             images)))
 
 (defun remfils/grab-all-images-from-org-file ()
@@ -198,11 +201,11 @@
           ("t" "Todo" entry (file+headline remfils/capture/get-file-location__task "Tasks")
            "** TODO %?\n%T")
           ("j" "Journal" entry (file+headline remfils/capture/get-file-location__journal "Journal")
-           "** %?\n:PROPERTY:\n:CATEGORY: journal\n:END:\n# дата: %T\n")
+           "** %T %?\n:PROPERTIES:\n:CATEGORY: journal\n:END:\n")
           ("e" "Event log" entry (file+headline remfils/capture/get-file-location__event "Event logs")
-           "* %T%?       :elog:\n:PROPERTY:\n:CATEGORY: event-log\n:END:\n")
+           "* %T%?       :elog:\n:PROPERTIES:\n:CATEGORY: event-log\n:END:\n")
           ("c" "Code" entry (file+headline remfils/capture/get-file-location__code "Code")
-           "** %?       :LANG:\n:PROPERTY:\n:CATEGORY: code\n:END:\n# дата: %T\n"))
+           "** %?       :LANG:\n:PROPERTIES:\n:CATEGORY: code\n:END:\n# дата: %T\n"))
         )
   )
 

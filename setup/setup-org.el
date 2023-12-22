@@ -23,7 +23,7 @@
 
 ;; prose mode
 
-(defun remfils/white-theme()
+(defun remfils/on-word-theme()
   (interactive)
   (setq
    truncate-lines nil
@@ -34,7 +34,23 @@
    show-trailing-whitespace nil
    line-spacing 0.2
    electric-pair-mode nil)
+  (disable-theme remfils/current-theme-value)
+  (load-theme 'leuven t)
   )
+
+(defun remfils/off-word-theme()
+  (interactive)
+  (disable-theme 'leuven)
+  (load-theme remfils/current-theme-value t)
+  
+  (kill-local-variable 'truncate-lines)
+  (kill-local-variable 'word-wrap)
+  (kill-local-variable 'cursor-type)
+  (kill-local-variable 'blink-cursor-interval)
+  (kill-local-variable 'show-trailing-whitespace)
+  (kill-local-variable 'line-spacing)
+  (kill-local-variable 'electric-pair-mode)
+)
 
 (setq-default
  remfils/current-theme-value nil)
@@ -55,7 +71,7 @@ typical word processor."
         (when (fboundp 'writeroom-mode)
           (writeroom-mode 1))
 
-        (remfils/white-theme)
+        (remfils/on-word-theme)
         
         (when (eq major-mode 'org)
           (kill-local-variable 'buffer-face-mode-face))
@@ -67,10 +83,6 @@ typical word processor."
         ;; (ignore-errors (flyspell-mode 1))
         (visual-line-mode 1)
 
-        ;; change theme
-        (disable-theme remfils/current-theme-value)
-        (load-theme 'leuven t)
-
         ;; setup window margins
 
         (setq
@@ -79,13 +91,6 @@ typical word processor."
         (set-window-buffer nil (window-buffer))
 
         )
-    (kill-local-variable 'truncate-lines)
-    (kill-local-variable 'word-wrap)
-    (kill-local-variable 'cursor-type)
-    (kill-local-variable 'blink-cursor-interval)
-    (kill-local-variable 'show-trailing-whitespace)
-    (kill-local-variable 'line-spacing)
-    (kill-local-variable 'electric-pair-mode)
     (buffer-face-mode -1)
     ;; (delete-selection-mode -1)
     ;; (flyspell-mode -1)
@@ -95,8 +100,7 @@ typical word processor."
 
     ;; revert theme
 
-    (disable-theme 'flatui)
-    (load-theme remfils/current-theme-value t)
+    (remfils/off-word-theme)
 
     ;; center window
 
