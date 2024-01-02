@@ -10,7 +10,7 @@ import pickle
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-DEBUG = True
+DEBUG = False
 
 CSV_BAL_FORMAT = '%D,%(account),%(scrub(total))\\n'
 CSV_REG_FORMAT = '%D,%(account),%(scrub(amount))\\n'
@@ -586,6 +586,8 @@ def wallet_change_time_track(ledger_file, query, period):
     lines = execute_ledger_command('reg', ledger_file, query, params)
 
     dt = create_date_label_total_dataframe(lines, include_comments=True);
+    if dt is None:
+        raise Exception('Failed to create dt from lines: ' + str(lines))
 
     fig, (ax, ax_txt) = plt.subplots(figsize =(16, 9), nrows=2, ncols=1, gridspec_kw={'height_ratios': [9, 1]})
 
@@ -599,7 +601,7 @@ def wallet_change_time_track(ledger_file, query, period):
     
     ax.plot(dt['date'], dt['result'], linestyle='--', marker='o', color=color_fn(query))
 
-    ax.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
+    ax.grid(color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
 
     for i in range(0, len(dt)):
         ax.text(

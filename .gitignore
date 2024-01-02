@@ -14,3 +14,9 @@ transient/
 custom.el
 .lsp-session-v1
 /eln-cache/
+/lsp-cache/
+places
+/scripts/__pycache__/
+/org-persist/
+/url/
+.bookmarks.el
