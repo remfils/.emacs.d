@@ -198,10 +198,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun remfils/php-mode-hook()
+  (hack-dir-local-variables-non-file-buffer)
   (local-set-key [f5] #'web-mode)
 
   (company-mode)
-  ;; TODO: if ide run ide
+
+  (if remfils-start-lsp?
+      (progn
+        (print "lsp mode stared")
+        (lsp-mode))
+    (print "lsp mode NOT stared")
+    
+    )
+  
   )
 
 (defun remfils/web-mode-hook()
@@ -210,6 +219,19 @@
   (company-mode)
   ;; TODO: if ide run ide
   )
+
+(setq-default
+ remfils/lsp/ignored-dirs nil)
+(put 'remfils/lsp/ignored-dirs 'safe-local-variable #'listp)
+(defun remfils/lsp-mode-hook()
+  (when (listp remfils/lsp/ignored-dirs)
+    (dolist (dir remfils/lsp/ignored-dirs)
+      (when (not (member dir lsp-file-watch-ignored-directories))
+        (push dir lsp-file-watch-ignored-directories))))
+  )
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook 'remfils/lsp-mode-hook))
 
 (with-eval-after-load 'php-mode
   (add-hook 'php-mode-hook 'remfils/php-mode-hook))
