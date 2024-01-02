@@ -120,6 +120,18 @@
   (hl-todo-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; csharp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun remfils/csharp-mode()
+  (hack-local-variables)
+  (when remfils-start-lsp?
+    (lsp)))
+
+(add-hook 'csharp-mode-hook 'remfils/csharp-mode)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -233,8 +245,10 @@
 ;; TODO: when to run ide?
 
 (setq-default
- remfils/is-ide-enabled? nil)
+ remfils-start-lsp? nil)
 (put 'remfils-start-lsp? 'safe-local-variable #'booleanp)
+
+;(put 'compile-command 'save-local-variable #'stringp)
 
 (defun remfils/setup-ide()
   (interactive)
