@@ -19,3 +19,4 @@ places
 /scripts/__pycache__/
 /org-persist/
 /url/
+.bookmarks.el
