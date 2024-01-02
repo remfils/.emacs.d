@@ -1,9 +1,9 @@
+;; Allow emacs to hog all memory for startup and reset it to lsp
+;; default
 (setq gc-cons-threshold most-positive-fixnum)
-
-;; Lower threshold back to 8 MiB (default is 800kB)
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold (expt 2 25))
+            (setq gc-cons-threshold (* 100 1024 1024))
             (print (emacs-init-time))))
 
 (defun remfils/prog-end())
@@ -13,6 +13,7 @@
 (require 'setup-packages)
 (require 'setup-navigation)
 
+(require 'setup-calc)
 (require 'setup-org)
 (require 'setup-remfils)
 (require 'setup-general-development)

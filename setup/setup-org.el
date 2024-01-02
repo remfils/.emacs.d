@@ -111,4 +111,5 @@ typical word processor."
     ;; (toggle-frame-fullscreen)
     ))
 
+(require 'org)
 (provide 'setup-org)
