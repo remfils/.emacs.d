@@ -373,7 +373,7 @@ def monthly_bar(ledger_file, period, query):
 
     fig, [ax, ax_txt] = plt.subplots(2, 1, gridspec_kw={'height_ratios': [12, 2]})
 
-    ax.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
+    ax.grid(color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
     
     ax.set_title(f'Доходы по месяцам [{query}]')
     
@@ -440,7 +440,7 @@ def ballance_plot(ledger_file, period, query):
     ax.barh(dt['label'], dt['total'], color='tab:red')
 
     # Add x, y gridlines
-    ax.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
+    ax.grid(color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
     ax.invert_yaxis()
     ax.set_xlabel("RUB")
 
@@ -650,12 +650,12 @@ if __name__ == '__main__':
     elif args.mode == 'income-monthly':
         monthly_bar(args.file, args.period, '^Income')
     elif args.mode == 'savings-monthly':
-        monthly_bar(args.file, args.period, ['^Black Day', '^Expenses:Investments'])
+        monthly_bar(args.file, args.period, ['^Black Day', '^Investments'])
     elif args.mode == 'change-track':
         wallet_change_time_track(args.file, args.account, args.period)
     elif args.mode == 'full-year-expenses-bal':
-        target_dir = r'C:\Users\Vlad Pereskokov\Sync\\'
-        year = '2022'
+        target_dir = r'C:\Users\User\Org\db\ledger\reports\report-2023'
+        year = '2023'
         month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
         for m in month_names:
