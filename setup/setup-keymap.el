@@ -107,7 +107,8 @@ point reaches the beginning or end of the buffer, stop there."
 (print (type-of #'split-window-below))
 
 (with-eval-after-load 'csharp-mode
-  (define-key csharp-mode-map (kbd "<f5>") 'recompile))
+  (define-key csharp-mode-map (kbd "<f5>") 'recompile)
+  (define-key csharp-mode-map (kbd "C-c C-l") 'lsp-execute-code-action))
 
 
 

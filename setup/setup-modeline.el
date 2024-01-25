@@ -49,7 +49,7 @@
  (list
   "%e"
   mode-line-front-space
-  remfils/current-input-method
+  mode-line-mule-info
   mode-line-client
   mode-line-remote
   mode-line-frame-identification
