@@ -34,6 +34,42 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; timer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq-default
+ remfils/temp-timer-buffer "*My Timer*"
+ remfils/temp-timer-second-counter 0
+ remfils/temp-timer nil
+ )
+
+(defun remfils/run-timer/format-timer(total-seconds)
+  (let ((seconds (% total-seconds 60))
+        (minutes (/ total-seconds 60)))
+    (format "00:%02d:%02d" minutes seconds)
+    ))
+
+(defun remfils/run-timer/stop-timer()
+    (cancel-timer remfils/temp-timer)
+    (setq remfils/temp-timer nil))
+
+(defun remfils/run-timer/update-timer-buffer()
+  (let ((cbuffer (current-buffer)))
+    (set-buffer remfils/temp-timer-buffer)
+    (erase-buffer)
+    (insert (remfils/run-timer/format-timer remfils/temp-timer-second-counter))
+    (set-buffer cbuffer)
+    ))
+
+(defun remfils/run-timer()
+  (setq remfils/temp-timer-second-counter (1+ remfils/temp-timer-second-counter))
+
+  (if (get-buffer remfils/temp-timer-buffer)
+      (remfils/run-timer/update-timer-buffer)
+    (remfils/run-timer/stop-timer))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; image mover
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

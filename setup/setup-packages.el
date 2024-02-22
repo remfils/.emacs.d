@@ -26,6 +26,7 @@
    ;; tree-sitter-langs
    ;; tree-sitter-indent
    lsp-mode ;; TODO: configure flycheck for each language
+   lsp-ui ;; TODO: configure flycheck for each language
    flycheck ;; TODO: configure flycheck for each language
    rainbow-delimiters
    expand-region

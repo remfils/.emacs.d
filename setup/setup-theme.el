@@ -1,6 +1,7 @@
 (load-theme 'zenburn t)
 
 (set-face-attribute 'lazy-highlight nil :background "#2B2B2B" :underline t)
+(set-face-attribute 'header-line nil :inherit 'default)
 
 ;; marginalia
 

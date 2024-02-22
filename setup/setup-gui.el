@@ -68,7 +68,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun remfils/split-window-vertically(arg)
+(defun remfils/split-window-vertically(&optional arg)
   (interactive "P")
     (split-window-vertically)
     (let ((target-window (next-window)))
@@ -77,7 +77,7 @@
         (select-window target-window))))
 
 
-(defun remfils/split-window-horizontally(arg)
+(defun remfils/split-window-horizontally(&optional arg)
   (interactive "P")
     (split-window-horizontally)
     (let ((target-window (next-window)))

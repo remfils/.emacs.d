@@ -104,10 +104,9 @@ point reaches the beginning or end of the buffer, stop there."
   (define-key c-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file)
   (define-key c++-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file))
 
-(print (type-of #'split-window-below))
-
 (with-eval-after-load 'csharp-mode
   (define-key csharp-mode-map (kbd "<f5>") 'recompile))
+
 
 
 
@@ -133,6 +132,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 (define-key global-map (kbd "C-c k c") 'epa-encrypt-region)
 (define-key global-map (kbd "C-c k d") 'epa-decrypt-region)
+
+; (define-key org-columns-map (kbd "*") 'org-todo)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

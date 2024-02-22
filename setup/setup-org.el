@@ -21,6 +21,7 @@
 ; org-rmail
       ))
 
+
 ;; prose mode
 
 (defun remfils/on-word-theme()
@@ -28,7 +29,9 @@
   (setq
    truncate-lines nil
    word-wrap t
-   cursor-type 'bar)
+   cursor-type 'bar
+   org-cycle-separator-lines 0
+   )
   (setq-local
    blink-cursor-interval 0.6
    show-trailing-whitespace nil

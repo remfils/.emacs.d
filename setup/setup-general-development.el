@@ -43,6 +43,8 @@
  kept-new-versions 6
  kept-old-versions 2
  version-control t
+
+ sentence-end-double-space nil
  
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
  buffers-menu-max-size 30
@@ -95,7 +97,12 @@
 (setq-default
  gc-cons-threshold (* 100 1024 1024)
  read-process-output-max (* 1024 1024)
- lsp-idle-delay 0.1)
+ lsp-idle-delay 0.1
+ lsp-ui-sideline-show-diagnostics t
+ lsp-ui-show-doc t
+ lsp-ui-sideline-show-hover nil
+ lsp-ui-doc-dellay nil
+ lsp-keymap-prefix "C-c l")
 
 ;; c++ braces
 ;(add-to-list 'c-offsets-alist '(substatement-open . 0))
@@ -166,8 +173,8 @@
   (hack-local-variables)
   (company-mode)
   ;;;; TODO: lsp example
-  ;; (when remfils-start-lsp?
-  ;;   (lsp-mode))
+  (when remfils-start-lsp?
+    (lsp))
   )
 
 (with-eval-after-load 'python
