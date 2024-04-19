@@ -92,6 +92,9 @@ point reaches the beginning or end of the buffer, stop there."
   (define-key web-mode-map (kbd "M-o") 'ace-window))
 
 
+(with-eval-after-load 'org-mode
+  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show-and-scroll-up))
+
 (with-eval-after-load 'emmet-mode
   (define-key emmet-mode-keymap (kbd "C-j") nil)
   (define-key emmet-mode-keymap (kbd "C-c C-j") 'emmet-expand-line))
@@ -129,6 +132,7 @@ point reaches the beginning or end of the buffer, stop there."
 (define-key global-map (kbd "C-c o l") 'org-store-link)
 (define-key global-map (kbd "C-c o c") 'org-capture)
 (define-key global-map (kbd "C-c o o") 'remfils/capture/doc.org-other-window)
+(define-key global-map (kbd "C-c o e") 'remfils/capture/calendar-file-other-window)
 
 
 (define-key global-map (kbd "C-c k c") 'epa-encrypt-region)

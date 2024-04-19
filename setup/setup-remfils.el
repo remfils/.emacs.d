@@ -191,10 +191,26 @@
   :group 'remfils
   :type '(string))
 
+(defcustom remfils/sync/calendar-file
+  "~/event-calendar.org"
+  "path to calendar"
+  :group 'remfils
+  :type '(string))
+
+(defcustom remfils/sync/workout-file
+  "~/workout.org"
+  "path to workout"
+  :group 'remfils
+  :type '(string))
+
 (defun remfils/capture/doc.org-path()
   (if (boundp 'remfils/capture/custom-doc.org)
         remfils/capture/custom-doc.org
-      remfils/sync/refile-org-path))
+    remfils/sync/refile-org-path))
+
+(defun remfils/capture/calendar-file-other-window()
+  (interactive)
+  (find-file-other-window (remfils/capture/get-file-location__event)))
 
 (defun remfils/capture/doc.org-other-window()
   (interactive)
@@ -202,46 +218,37 @@
 (put 'remfils/capture/custom-doc.org 'safe-local-variable #'stringp)
 
 (defun remfils/capture/get-file-location__task()
-  (if (boundp 'remfils/capture/project-file-location__task)
-      remfils/capture/project-file-location__task
-    (remfils/capture/doc.org-path)))
-(put 'remfils/capture/project-file-location__task 'safe-local-variable #'stringp)
+  (remfils/capture/doc.org-path))
 
 (defun remfils/capture/get-file-location__event()
-  (if (boundp 'remfils/capture/project-file-location__event)
-      remfils/capture/project-file-location__event
+  (if remfils/sync/calendar-file
+      remfils/sync/calendar-file
     (remfils/capture/doc.org-path)))
-(put 'remfils/capture/project-file-location__event 'safe-local-variable #'stringp)
 
 (defun remfils/capture/get-file-location__journal()
-  (if (boundp 'remfils/capture/project-file-location__journal)
-      remfils/capture/project-file-location__journal
-    (remfils/capture/doc.org-path)))
-(put 'remfils/capture/project-file-location__journal 'safe-local-variable #'stringp)
+  (remfils/capture/doc.org-path))
 
 (defun remfils/capture/get-file-location__code()
-  (if (boundp 'remfils/capture/project-file-location__code)
-      remfils/capture/project-file-location__code
-    (remfils/capture/doc.org-path)))
-(put 'remfils/capture/project-file-location__code 'safe-local-variable #'stringp)
-
+  (remfils/capture/doc.org-path))
 
 
 (defun remfils/set-agenda-and-refile-after-custom-load ()
   (setq org-agenda-files
           (list
-           remfils/sync/refile-org-path))
+           remfils/sync/refile-org-path
+           remfils/sync/calendar-file
+           remfils/sync/workout-file))
 
   (setq org-capture-templates
         '(
           ("t" "Todo" entry (file+headline remfils/capture/get-file-location__task "Tasks")
            "** TODO %?\n%T")
           ("j" "Journal" entry (file+headline remfils/capture/get-file-location__journal "Journal")
-           "** %T %?\n:PROPERTIES:\n:CATEGORY: journal\n:END:\n")
+           "** %?\n%T\n")
           ("e" "Event log" entry (file+headline remfils/capture/get-file-location__event "Event logs")
-           "* %T%?       :elog:\n:PROPERTIES:\n:CATEGORY: event-log\n:END:\n")
+           "* %?       :elog:\n%T\n")
           ("c" "Code" entry (file+headline remfils/capture/get-file-location__code "Code")
-           "** %?       :LANG:\n:PROPERTIES:\n:CATEGORY: code\n:END:\n# дата: %T\n"))
+           "** %?       :LANG:\n%T\n\n#+begin_src LANG\n#+end_src\n"))
         )
   )
 

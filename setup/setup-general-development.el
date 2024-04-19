@@ -173,8 +173,12 @@
   (hack-local-variables)
   (company-mode)
   ;;;; TODO: lsp example
-  (when remfils-start-lsp?
-    (lsp))
+  (if remfils-start-lsp?
+      (progn
+        (print "lsp mode stared")
+        (lsp))
+    (print "lsp mode NOT stared")
+    )
   )
 
 (with-eval-after-load 'python
