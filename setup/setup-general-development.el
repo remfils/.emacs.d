@@ -212,6 +212,7 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html.twig\\'" . web-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -231,7 +232,7 @@
   (if remfils-start-lsp?
       (progn
         (print "lsp mode stared")
-        (lsp-mode))
+        (lsp))
     (print "lsp mode NOT stared")
     
     )
@@ -256,6 +257,8 @@
   )
 
 (with-eval-after-load 'lsp-mode
+  (push "[/\\\\]vendor\\'" lsp-file-watch-ignored)
+  
   (add-hook 'lsp-mode-hook 'remfils/lsp-mode-hook))
 
 (with-eval-after-load 'php-mode
