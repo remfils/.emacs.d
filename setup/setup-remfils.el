@@ -203,6 +203,12 @@
   :group 'remfils
   :type '(string))
 
+(defcustom remfils/sync/freelance-file
+  "~/freelance.org"
+  "path to freelance"
+  :group 'remfils
+  :type '(string))
+
 (defun remfils/capture/doc.org-path()
   (if (boundp 'remfils/capture/custom-doc.org)
         remfils/capture/custom-doc.org
@@ -237,7 +243,8 @@
           (list
            remfils/sync/refile-org-path
            remfils/sync/calendar-file
-           remfils/sync/workout-file))
+           remfils/sync/workout-file
+           remfils/sync/freelance-file))
 
   (setq org-capture-templates
         '(
