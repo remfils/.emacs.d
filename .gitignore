@@ -20,3 +20,7 @@ places
 /org-persist/
 /url/
 .bookmarks.el
+/.cache/
+/.local/
+/request/
+.bookmarks.el
