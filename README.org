@@ -9,11 +9,12 @@ sudo dnf install ripgrep
 * custom.el example
 
 #+begin_src elisp
-  (custom-set-variables
-   '(remfils/sync/refile-org-path "~/Org/refile.org")
-   '(remfils/sync/calendar-file "~/Org/event-calendar.org")
-   '(remfils/sync/workout-file "~/Org/notes/workout-journal.org")
-   )
+    (custom-set-variables
+     '(remfils/sync/refile-org-path "~/Org/refile.org")
+     '(remfils/sync/calendar-file "~/Org/event-calendar.org")
+     '(remfils/sync/workout-file "~/Org/notes/workout-journal.org")
+     '(remfils/sync/freelance-file "~/Org/freelance.org")
+     )
 #+end_src
 
 * Examples for @file:.dir-locals.el
