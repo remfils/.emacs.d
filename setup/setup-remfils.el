@@ -209,6 +209,12 @@
   :group 'remfils
   :type '(string))
 
+(defcustom remfils/sync/work-now-file
+  "~/work-now.org"
+  "path to workout"
+  :group 'remfils
+  :type '(string))
+
 (defun remfils/capture/doc.org-path()
   (if (boundp 'remfils/capture/custom-doc.org)
         remfils/capture/custom-doc.org
@@ -244,7 +250,8 @@
            remfils/sync/refile-org-path
            remfils/sync/calendar-file
            remfils/sync/workout-file
-           remfils/sync/freelance-file))
+           remfils/sync/freelance-file
+           remfils/sync/work-now-file))
 
   (setq org-capture-templates
         '(
