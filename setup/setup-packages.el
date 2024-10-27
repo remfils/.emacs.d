@@ -14,8 +14,9 @@
    ace-window
 
    ;;;; additional menu
-   embark
    embark-consult
+   embark
+
 
    ;;;; diagnostics
    discover-my-major

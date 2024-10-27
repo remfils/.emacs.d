@@ -6,6 +6,7 @@
 (require 'company)
 (require 'emmet-mode)
 
+
 ;; (require 'js2-mode)
 ;; (require 'json-mode) ;;
 
@@ -71,6 +72,8 @@
 
  ;; dired
  dired-dwim-target t
+
+ mode-require-final-newline nil
  )
 
 (setq-default
