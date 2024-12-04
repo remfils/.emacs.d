@@ -298,4 +298,34 @@
      )))
 
 
+(defun remfils/px-to-rem()
+  (interactive)
+  (push-mark)
+  (re-search-forward "\\([0-9.]+\\) *px *;$")
+  (let*
+      ((sval (match-string 1))
+       (val (* (/ 1.0 16.0) (string-to-number sval))))
+    
+    (exchange-point-and-mark)
+    (insert (number-to-string val))
+    (insert "rem;")
+    (kill-line)
+    )
+)
+
+
+;; php functions
+
+(defun remfils/php/short-tags-removal()
+  (interactive)
+  (beginning-of-buffer)
+  (replace-string "<?" "<?php")
+  (beginning-of-buffer)
+  (replace-string "<?phpphp" "<?php")
+  (beginning-of-buffer)
+  (replace-string "<?php=" "<?=")
+  (beginning-of-buffer)
+  )
+
+
 (provide 'setup-remfils)
