@@ -10,8 +10,13 @@
   "Mode line modified face."
   :group 'basic-faces)
 
+(defface remfils/vc/task-branch
+  '((t :foreground "#000000" :background "#f0f0f0"))
+  "Mode line modified face."
+  :group 'basic-faces)
+
 (defface remfils/vc/basic-branch
-  '((t :foreground "black"))
+  '((t :foreground "white"))
   "Mode line modified face."
   :group 'basic-faces)
 
@@ -26,6 +31,7 @@
 (defun remfils/format-branch-name(branch-name)
   (let ((branch-face
          (cond
+          ((string-prefix-p "t-" branch-name) 'remfils/vc/task-branch)
           ((string-prefix-p "feature" branch-name) 'remfils/vc/feature-branch)
           (t '("black", "white") 'remfils/vc/basic-branch)
           )))

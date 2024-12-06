@@ -152,7 +152,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun remfils/lisp-mode-hook()
-  (company-mode))
+  (company-mode)
+  )
 
 (add-hook 'emacs-lisp-mode-hook 'remfils/lisp-mode-hook)
 
@@ -217,9 +218,13 @@
 ;; php
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 (defun remfils/php-mode-hook()
   (hack-dir-local-variables-non-file-buffer)
   (local-set-key [f5] #'web-mode)
+
+  ;; NOTE: this is a HUGE speed up for performance
+  (setq-local syntax-propertize-function nil)
 
   (company-mode)
 
@@ -275,7 +280,8 @@
 (put 'js2-basic-offset 'safe-local-variable #'integerp)
 
 (defun remfils/js2-mode-hook()
-  (company-mode))
+  (company-mode)
+  )
 
 (with-eval-after-load 'js2-mode
   (add-hook 'js2-mode-hook 'remfils/js2-mode-hook))
