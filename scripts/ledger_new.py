@@ -10,7 +10,7 @@ import pickle
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-DEBUG = False
+DEBUG = True
 
 CSV_BAL_FORMAT = '%D,%(account),%(scrub(total))\\n'
 CSV_REG_FORMAT = '%D,%(account),%(scrub(amount))\\n'
@@ -265,7 +265,7 @@ def full_year_monthly_table__get_dataframe(ledger_file, period, query):
     category_data = {}
     
     for p in periods:
-        params['period'] = '2022 ' + p # DEBUG
+        params['period'] = '2024 ' + p # DEBUG
         lines = execute_ledger_command('bal', ledger_file, ['^Expenses:Nastya'], params)
         current_hierarchy = []
         current_parent = None
@@ -343,7 +343,7 @@ def full_year_monthly_table__get_dataframe(ledger_file, period, query):
 
 
 def monthly_bar(ledger_file, period, query):
-    limit_data_count = 5
+    limit_data_count = 4
     
     params = {
         'format': CSV_REG_FORMAT,
@@ -357,18 +357,23 @@ def monthly_bar(ledger_file, period, query):
     
     df = create_date_label_total_dataframe(lines, only_positive=True)
 
+    # TODO: manual PROFI collapse for 2024
+    #df.label = df.label.str.replace('Income:Profi:.*', 'Income:Profi', regex=True)
+    #df = df.groupby(['date', 'label'], sort=False, as_index=False).agg({'total': 'sum'})
+
     df_wide = df.pivot(index='date', columns='label', values='total')
     df_wide.fillna(0, inplace=True)
     df_wide.sort_index(inplace=True)
 
     totals = df_wide.apply(sum).sort_values(ascending=False)
-    if len(totals) > limit_data_count:
+
+    if len(totals) >= limit_data_count:
         significant_totals = totals[:limit_data_count]
         not_significant_totals = totals[limit_data_count+1:]
     else:
         significant_totals = totals
-        not_significant_totals = []    
-    
+        not_significant_totals = []
+
     accounts = significant_totals.index.tolist()
 
     fig, [ax, ax_txt] = plt.subplots(2, 1, gridspec_kw={'height_ratios': [12, 2]})
@@ -377,10 +382,10 @@ def monthly_bar(ledger_file, period, query):
     
     ax.set_title(f'Доходы по месяцам [{query}]')
     
-    bar_width = 0.5 / len(accounts);
+    bar_width = 1 / len(accounts);
     index = np.arange(len(df_wide.index))
     
-    cmap = plt.get_cmap("tab20c")
+    cmap = plt.get_cmap("tab20")
     for idx, account in enumerate(accounts):
         account_amounts = df_wide[account].tolist()
         ax.bar(index + idx * bar_width, account_amounts, bar_width, color=cmap(idx), label=account)
@@ -503,7 +508,7 @@ def ballance_plot(ledger_file, period, query):
 #     print(dt)
 
 
-def bal_pie_chart(ledger_file, period, query):
+def bal_pie_chart(ledger_file, period, query=None, use_rest_collapse=True):
     params = {
         'format': CSV_BAL_FORMAT,
         'flat': True,
@@ -541,12 +546,17 @@ def bal_pie_chart(ledger_file, period, query):
     dt['percents'] = round(dt['total'] * 100 / total, 2)
     dt['total'] = round(dt['total'], 2)
 
-    split_percent = 1
+    
+    if use_rest_collapse:
+        split_percent = 2.5
+    else:
+        split_percent = -1
 
     is_detailed_plot_needed = (dt['percents'] < split_percent).any()
 
     if is_detailed_plot_needed:
-        fig, (full_ax, small_ax, ax_txt) = plt.subplots(figsize =(16, 9), ncols=3, gridspec_kw={'width_ratios': [5, 5, 2]})
+        if use_rest_collapse:
+            fig, (full_ax, small_ax, ax_txt) = plt.subplots(figsize =(16, 9), ncols=3, gridspec_kw={'width_ratios': [5, 5, 2]})
 
         full_dt = dt.copy()
         full_dt.loc[full_dt['percents'] < split_percent, 'label'] = 'Rest'
@@ -578,7 +588,7 @@ def bal_pie_chart(ledger_file, period, query):
 def wallet_change_time_track(ledger_file, query, period):
     params = {
         'format': CSV_REG_FORMAT_WITH_COMMENT,
-        'period': period,
+        #'period': period,
         'flat': True,
         'no-total': True
     }
@@ -646,7 +656,7 @@ if __name__ == '__main__':
     elif args.mode == 'master-pie':
         bal_pie_chart(args.file, args.period, None)
     elif args.mode == 'income-pie':
-        bal_pie_chart(args.file, args.period, '^Income')
+        bal_pie_chart(args.file, args.period, '^Income', use_rest_collapse=False)
     elif args.mode == 'income-monthly':
         monthly_bar(args.file, args.period, '^Income')
     elif args.mode == 'savings-monthly':
@@ -654,15 +664,15 @@ if __name__ == '__main__':
     elif args.mode == 'change-track':
         wallet_change_time_track(args.file, args.account, args.period)
     elif args.mode == 'full-year-expenses-bal':
-        target_dir = r'C:\Users\User\Org\db\ledger\reports\report-2023'
-        year = '2023'
+        target_dir = r'C:\Users\User\Org\db\ledger\2024'
+        year = '2024'
         month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
         for m in month_names:
             period = year + ' ' + m
             ballance_plot(args.file, period, '^Expenses')
             show_plot = False
-            plt.savefig(target_dir + period + '.jpg')
+            plt.savefig(target_dir + '\\' + period + '.jpg')
             plt.cla()
             plt.clf()
     elif args.mode == 'full-year-monthly-expenses-table':
