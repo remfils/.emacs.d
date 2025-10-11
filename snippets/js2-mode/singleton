@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: singleton
+# key: #single
+# --
+window.$1 = ((module) => {
+
+  $0
+  
+  return module;
+})(window.$1 || {});
