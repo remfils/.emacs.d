@@ -37,13 +37,13 @@
 
 (setq-default
 ;; backups
- maake-backup-files t
- backup-directory-alist `(("." . "~/.saves"))
- backup-by-copying t
- delete-old-versions t
- kept-new-versions 6
- kept-old-versions 2
- version-control t
+ make-backup-files nil
+ ;;backup-directory-alist `(("." . "~/.saves"))
+ ;;backup-by-copying t
+ ;;delete-old-versions t
+ ;;kept-new-versions 6
+ ;;kept-old-versions 2
+ ;;version-control t
 
  sentence-end-double-space nil
  
@@ -56,7 +56,6 @@
  indent-tabs-mode nil
  create-lockfiles nil
  auto-save-default nil
- make-backup-files nil
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
