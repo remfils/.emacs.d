@@ -6,6 +6,8 @@
 (require 'company)
 (require 'emmet-mode)
 
+(require 'company-php)
+
 
 ;; (require 'js2-mode)
 ;; (require 'json-mode) ;;
@@ -224,7 +226,10 @@
   (local-set-key [f5] #'web-mode)
 
   ;; NOTE: this is a HUGE speed up for performance
-  (setq-local syntax-propertize-function nil)
+  (setq-local
+   syntax-propertize-function nil
+   company-backends '(company-php company-capf company-dabbrev-code)
+   )
 
   (company-mode)
 
@@ -235,7 +240,6 @@
     (print "lsp mode NOT stared")
     
     )
-  
   )
 
 (defun remfils/web-mode-hook()

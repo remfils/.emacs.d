@@ -38,6 +38,7 @@
    
    ;;;; php dev
    php-mode
+   company-php
    emmet-mode
    web-mode
    
