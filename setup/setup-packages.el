@@ -25,8 +25,9 @@
    ;; tree-sitter
    ;; tree-sitter-langs
    ;; tree-sitter-indent
-   ;;lsp-mode ;; TODO: configure flycheck for each language
-   ;;lsp-ui ;; TODO: configure flycheck for each language
+   lsp-mode ;; TODO: configure flycheck for each language
+   lsp-ui ;; TODO: configure flycheck for each language
+   consult-lsp
    flycheck ;; TODO: configure flycheck for each language
    rainbow-delimiters
    expand-region
@@ -38,7 +39,7 @@
    
    ;;;; php dev
    php-mode
-   company-php
+   ;;company-php
    emmet-mode
    web-mode
    
@@ -54,12 +55,6 @@
    ;;;; misc
    ledger-mode
 
-   ;; 
-   ;; helm ; DEBUG
-   ;; avy ; DEBUG
-   ;; org-cliplink
-   ;; switch-window
-   ;; gnu-elpa-keyring-update
    ))
 
 (unless package-archive-contents

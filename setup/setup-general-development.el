@@ -6,7 +6,7 @@
 (require 'company)
 (require 'emmet-mode)
 
-(require 'company-php)
+;;(require 'company-php)
 
 
 ;; (require 'js2-mode)
@@ -107,6 +107,28 @@
  lsp-ui-sideline-show-hover nil
  lsp-ui-doc-dellay nil
  lsp-keymap-prefix "C-c l")
+
+(with-eval-after-load 'lsp
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection
+                     (lambda ()
+                       (unless lsp-php-composer-dir
+                         (setq lsp-php-composer-dir (lsp-php-get-composer-dir)))
+                       (unless lsp-phpactor-path
+                         (setq lsp-phpactor-path (or (executable-find "phpactor")
+                                                     (f-join lsp-php-composer-dir "vendor/phpactor/phpactor/bin/phpactor"))))
+                       (list "emacs-lsp-booster" "--" lsp-phpactor-path "language-server")))
+    :activation-fn (lsp-activate-on "php")
+    ;; `phpactor' is not really that feature-complete: it doesn't support
+    ;; `textDocument/showOccurence' and sometimes errors (e.g. find references on
+    ;; a global free-standing function).
+    :priority -1
+    ;; Even though `phpactor' itself supports no options, this needs to be
+    ;; serialized as an empty object (otherwise the LS won't even start, due to a
+    ;; type error).
+    :initialization-options (ht)
+    :server-id 'phpactor-boost)))
 
 ;; c++ braces
 ;(add-to-list 'c-offsets-alist '(substatement-open . 0))
@@ -228,7 +250,7 @@
   ;; NOTE: this is a HUGE speed up for performance
   (setq-local
    syntax-propertize-function nil
-   company-backends '(company-php company-capf company-dabbrev-code)
+   company-backends '(company-capf company-dabbrev-code)
    )
 
   (company-mode)
@@ -236,7 +258,7 @@
   (if remfils-start-lsp?
       (progn
         (print "lsp mode stared")
-        (lsp))
+        (remfils/setup-ide))
     (print "lsp mode NOT stared")
     
     )
@@ -249,18 +271,19 @@
   ;; TODO: if ide run ide
   )
 
-(setq-default
- remfils/lsp/ignored-dirs nil)
+(setq-default remfils/lsp/ignored-dirs nil)
 (put 'remfils/lsp/ignored-dirs 'safe-local-variable #'listp)
 (defun remfils/lsp-mode-hook()
   (when (listp remfils/lsp/ignored-dirs)
     (dolist (dir remfils/lsp/ignored-dirs)
-      (when (not (member dir lsp-file-watch-ignored-directories))
-        (push dir lsp-file-watch-ignored-directories))))
+      (let ((expr (concat "[/\\\\]" dir "\\'")))
+        (when (not (member expr lsp-file-watch-ignored-directories))
+          (push expr lsp-file-watch-ignored-directories))
+        )))
   )
 
 (with-eval-after-load 'lsp-mode
-  (push "[/\\\\]vendor\\'" lsp-file-watch-ignored)
+  ;;(push "[/\\\\]vendor\\'" lsp-file-watch-ignored)
   
   (add-hook 'lsp-mode-hook 'remfils/lsp-mode-hook))
 
@@ -311,9 +334,13 @@
   (require 'yasnippet)
   (require 'magit)
 
-  (global-flycheck-mode)
-  (global-company-mode)
-  (yas-global-mode)
+  (lsp-deferred)
+  ;;(eglot-booster-mode)
+  
+
+  (flycheck-mode)
+  (company-mode)
+  (yas-minor-mode)
   )
 
 
@@ -326,5 +353,36 @@
 
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+;;(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+;;  "Prepend emacs-lsp-booster command to lsp CMD."
+;;  (let ((orig-result (funcall old-fn cmd test?)))
+;;    (if (and (not test?)                             ;; for check lsp-server-present?
+;;             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+;;             lsp-use-plists
+;;             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+;;             (executable-find "emacs-lsp-booster"))
+;;        (progn
+;;          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+;;            (setcar orig-result command-from-exec-path))
+;;          (message "Using emacs-lsp-booster for %s!" orig-result)
+;;          (cons "emacs-lsp-booster" orig-result))
+;;      orig-result)))
+;;(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+;;
 
 (provide 'setup-general-development)
