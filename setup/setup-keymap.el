@@ -112,8 +112,10 @@ point reaches the beginning or end of the buffer, stop there."
   (global-set-key (kbd "C-x 3") 'remfils/split-window-horizontally))
 
 (with-eval-after-load 'cc-mode
+  (define-key c-mode-map (kbd "<f5>") 'compile)
   (define-key c-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file)
-  (define-key c++-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file))
+  (define-key c++-mode-map (kbd "M-O") 'remfils/c++/open-header-or-source-file)
+  (define-key c++-mode-map (kbd "<f5>") 'compile))
 
 (with-eval-after-load 'csharp-mode
   (define-key csharp-mode-map (kbd "<f5>") 'recompile)
