@@ -59,6 +59,7 @@
  create-lockfiles nil
  auto-save-default nil
  mouse-yank-at-point t
+ show-trailing-whitespace nil
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t
@@ -246,6 +247,9 @@
 (defun remfils/php-mode-hook()
   (hack-dir-local-variables-non-file-buffer)
   (local-set-key [f5] #'web-mode)
+
+  (remove-hook 'before-save-hook 'delete-trailing-whitespace t)
+  (remove-hook 'before-save-hook 'whitespace-cleanup t)
 
   ;; NOTE: this is a HUGE speed up for performance
   (setq-local
